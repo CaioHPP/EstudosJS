@@ -15,8 +15,7 @@ function buscaFilme(texto){
     const response = axios.get(encodedurl)
     return response
 }
-/* buscaFilme('Jack Reacher')
+buscaFilme('Jack Reacher')
 .then(({data})=>{
     console.log(data)
 })
- */
