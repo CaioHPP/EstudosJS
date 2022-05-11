@@ -1,3 +1,6 @@
+$primario_1: rgb(26, 26, 26);
+$primario_2: rgb(44, 42, 42);
+
 body {
   display: flex;
   flex-direction: column;
@@ -13,8 +16,9 @@ body {
 
 header {
   display: flex;
-  background-color: rgb(26, 26, 26);
+  background-color: $primario_1;
   justify-content: center;
+
   align-items: center;
   top: 0;
   left: 0;
@@ -27,9 +31,9 @@ header {
   transition-duration: 0.2s;
   transition-timing-function: linear;
   transition-delay: 0s;
+
   border-bottom: 1px solid goldenrod;
 }
-
 .header a {
   float: left;
   color: white;
@@ -42,7 +46,7 @@ header {
 }
 
 .header a:hover {
-  background-color: rgb(26, 26, 26);
+  background-color: $primario_1;
   border-radius: 4px;
   border-style: solid;
   border-color: goldenrod;
@@ -51,7 +55,7 @@ header {
 }
 
 .header a.active {
-  background-color: rgb(26, 26, 26);
+  background-color: $primario_1;
   border-radius: 4px;
   border-style: solid;
   border-color: goldenrod;
@@ -60,9 +64,8 @@ header {
 }
 
 footer {
-  background-color: rgb(26, 26, 26);
+  background-color: $primario_1;
 }
-
 section {
   height: 300px;
   border-bottom: 1px solid goldenrod;
@@ -91,7 +94,7 @@ section {
 }
 
 .gradiente {
-  background-image: linear-gradient(rgb(26, 26, 26), rgb(44, 42, 42));
+  background-image: linear-gradient($primario_1, $primario_2);
 }
 
 .sub {
@@ -118,5 +121,3 @@ section {
   background-repeat: no-repeat;
   background-position: 50% 50%;
 }
-
-/*# sourceMappingURL=style.css.map */
