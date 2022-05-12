@@ -1,48 +1,187 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body class="gradiente">
-    <header>
-      <div class="content">
-        <div class="sub">
-          <div class="esquerda">
-            <h1>Meu Nome Sobrenome</h1>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meu Site</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body class="gradiente">
+  <header>
+    <div class="content">
+      <div class="sub">
+        <div class="esquerda">
+          <h1>Meu Nome Sobrenome</h1>
+        </div>
+        <div class="direita">
+          <div class="header">
+            <a class="active" href="#home">Home</a>
+            <a href="#contact">Contact</a>
           </div>
-          <div class="direita">
-            <div class="header">
-              <a class="active" href="#home">Home</a>
-              <a href="#contact">Contact</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section id="busca" class="inner-content nova-sessao">
+    <div class="conteudo">
+      <div class="conteudo-wrap">
+        <div class="textoBemVindo">
+          <h2>Bem Vindo!</h2>
+          <h3>Este e um site feito para um estudo de Web.</h3>
+        </div>
+        <div class="caixaDePesquisa">
+          <div class="form">
+            <label for="">
+              <input id="queryBusca" name="query" type="text" placeholder="Busque por um filme..." />
+            </label>
+            </form>
+          </div>
+        </div>
+      </div>
+  </section>
+  <section id="nosCinemas" class="inner-content nova-sessao">
+    <div class="conteudo-filmes">
+      <div class="header-section">
+        <h2>Nos Cinemas</h2>
+      </div>
+      <div class="midia">
+        <div class="colunas">
+          <div class="coluna">
+            <div class="imagem">
+              <a id="filme1" href="" class="imagem">
+                <img src="https://picsum.photos/200/300" alt="">
+              </a>
+            </div>
+            <div class="informacoes">
+              <h2><a id="filme1" href="" title="Filme 1: O Filme">Filme 1: O Filme</a></h2>
+              <p>Acao Comedia Tragedia</p>
+              <p>12 de maio de 2022</p>
+            </div>
+          </div>
+          <div class="coluna">
+            <div class="imagem">
+              <a id="filme1" href="" class="imagem">
+                <img src="https://picsum.photos/250/300" alt="">
+              </a>
+            </div>
+            <div class="informacoes">
+              <h2><a id="filme1" href="" title="Filme 2: O Filme">Filme 2: O Filme</a></h2>
+              <p>Acao Comedia Tragedia</p>
+              <p>12 de maio de 2022</p>
+            </div>
+          </div>
+          <div class="coluna">
+            <div class="imagem">
+              <a id="filme1" href="" class="imagem">
+                <img src="https://picsum.photos/220/300" alt="">
+              </a>
+            </div>
+            <div class="informacoes">
+              <h2><a id="filme1" href="" title="Filme 3: O Filme">Filme 3: O Filme</a></h2>
+              <p>Acao Comedia Tragedia</p>
+              <p>12 de maio de 2022</p>
             </div>
           </div>
         </div>
       </div>
-    </header>
-
-    <section class="inner-content nova-sessao">
-      <div class="conteudo">
-        <div class="conteudo-wrap">
-          <div class="textoBemvindo">
-            <h2>Bem Vindo!</h2>
-            <h3>Este e um site feito para um estudo de Web.</h3>
-          </div>
-          <div class="caixaDePesquisa">
-            <input
-              id="queryBusca"
-              name="query"
-              type="text"
-              placeholder="Busque por um filme..."
-            />
-          </div>
-        </div>
+    </div>
+  </section>
+  <section id="topRated" class="inner-content nova-sessao">
+    <div class="conteudo-filmes">
+      <div class="header-section">
+        <h2>Mais bem avaliados</h2>
       </div>
-    </section>
-    <section class="inner-content">teste2</section>
-    <section class="inner-content">teste3</section>
-  </body>
+    </div>
+    <div class="topRatedList">
+      <table>
+        <thead>
+          <tr>
+            <th class="rank">Rank</th>
+            <th class="nomeFilme">Nome</th>
+            <th class="notaAvaliacao">Avaliacao dos Usuarios</th>
+            <th class="votos">N.º de Votos</th>
+            <th class="anoLancamento">Ano de Lancamento</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td id="rank" class="celulaOrdem">1</td>
+            <td>
+              <a id="primeiroFilme" class="celulaNome tooltip" href>
+                Filme 1: O Filme
+                <span class="tooltipContent">
+                  <div class="tooltipImagem">
+                    <div class="imagem">
+
+                      <img src="https://picsum.photos/200/300" alt="">
+
+                    </div>
+                  </div>
+                  <div class="tooltipTexto">
+                    <h2>Filme 1: O Filme</h2>
+                    <h3>Acao Comedia Tragedia</h3>
+                    <p>O filme retrata sobre Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vehicula
+                      viverra mi eget efficitur. Integer finibus viverra dui blandit elementum. Nunc quis suscipit est,
+                      id pulvinar velit. Proin faucibus felis in ipsum cursus euismod. Ut semper commodo risus, eu
+                      viverra orci elementum et. Aliquam nisi elit, tincidunt ut lobortis ac, ullamcorper at odio.
+                      Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Duis id
+                      aliquam risus, non pharetra ex. Proin at tristique sem. Morbi at ex neque. Donec aliquam mattis
+                      blandit. Maecenas laoreet elit in finibus scelerisque.</p>
+                  </div>
+
+                </span>
+              </a>
+
+            </td>
+            <td id="nota" class="celulaNota">8.7</td>
+            <td id="nVotos" class="celulaVotos">28574</td>
+            <td id="ano" class="celulaAno">1989</td>
+          </tr>
+          <tr>
+            <td id="rank" class="celulaOrdem">2</td>
+            <td><a id="primeiroFilme" class="celulaNome" href>Filme 2: O Filme</a></td>
+            <td id="nota" class="celulaNota">8.6</td>
+            <td id="nVotos" class="celulaVotos">28250</td>
+            <td id="ano" class="celulaAno">1990</td>
+          </tr>
+          <tr>
+            <td id="rank" class="celulaOrdem">3</td>
+            <td><a id="primeiroFilme" class="celulaNome" href>Filme 3: O Filme</a></td>
+            <td id="nota" class="celulaNota">8.2</td>
+            <td id="nVotos" class="celulaVotos">19000</td>
+            <td id="ano" class="celulaAno">1995</td>
+          </tr>
+          <tr>
+            <td id="rank" class="celulaOrdem">4</td>
+            <td><a id="primeiroFilme" class="celulaNome" href>Filme 4: O Filme</a></td>
+            <td id="nota" class="celulaNota">8.0</td>
+            <td id="nVotos" class="celulaVotos">20514</td>
+            <td id="ano" class="celulaAno">2002</td>
+          </tr>
+          <tr>
+            <td id="rank" class="celulaOrdem">5</td>
+            <td><a id="primeiroFilme" class="celulaNome" href>Filme 5: O Filme</a></td>
+            <td id="nota" class="celulaNota">8.0</td>
+            <td id="nVotos" class="celulaVotos">18405 </td>
+            <td id="ano" class="celulaAno">2007</td>
+          </tr>
+          <tr>
+            <td id="rank" class="celulaOrdem">6</td>
+            <td><a id="primeiroFilme" class="celulaNome" href>Filme 6: O Filme Reborn</a></td>
+            <td id="nota" class="celulaNota">6.7</td>
+            <td id="nVotos" class="celulaVotos">65104</td>
+            <td id="ano" class="celulaAno">2020</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+    </div>
+  </section>
+</body>
+
 </html>
