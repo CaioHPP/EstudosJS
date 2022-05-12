@@ -304,7 +304,7 @@ section {
 
 table {
   width: 100%;
-  border-collapse: separate;
+  border-collapse: collapse;
   font-size: 13px;
 }
 
@@ -337,6 +337,15 @@ table {
   text-align: left;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   outline: none;
+  border-bottom: 1px solid goldenrod;
+}
+
+.topRatedList tbody tr:last-child {
+  background: none;
+  text-align: left;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  outline: none;
+  border: none;
 }
 
 .topRatedList td.celulaOrdem {
@@ -349,7 +358,6 @@ table {
 .topRatedList td {
   font-size: 1rem;
   text-align: center;
-  border-bottom: 1px solid goldenrod;
   vertical-align: middle;
   outline: none;
   padding: 1.5em;
@@ -373,17 +381,71 @@ table {
 .tooltip .tooltipContent {
   visibility: hidden;
   width: 30em;
-  height: 40em;
+  height: 20em;
   background-color: rgb(26, 26, 26);
   color: #fff;
-  border-radius: 6px;
+  border-radius: 8px;
   padding: 5px 10px;
   position: absolute;
   z-index: 1;
+  justify-content: flex-start;
+  display: flex;
+  bottom: 80%;
+  left: 105%;
 }
 
 .tooltip:hover .tooltipContent {
   visibility: visible;
+}
+
+.tooltipTexto {
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+.tooltipTexto h2 {
+  margin: 0;
+  padding-top: 10px;
+}
+
+.tooltipTexto h3 {
+  margin: 0;
+  padding: 0px 5px;
+}
+
+.tooltipTexto p {
+  text-align: justify;
+  margin: 0;
+  padding: 20px 10px;
+}
+
+.tooltipImagem {
+  padding: 10px 5px;
+}
+
+.tooltipImagem img {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1);
+  background: transparent;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(46, 46, 46);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
 
 /*# sourceMappingURL=style.css.map */
