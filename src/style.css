@@ -72,7 +72,6 @@ footer {
 }
 
 section {
-  height: 400px;
   border-bottom: 1px solid goldenrod;
 }
 
@@ -132,7 +131,7 @@ section {
 }
 
 .nova-sessao {
-  min-height: 400px;
+  min-height: 350px;
   height: 100%;
   width: 100%;
   background-position: top center;
@@ -160,7 +159,8 @@ section {
 
 .textoBemVindo {
   width: 100%;
-  margin-bottom: 10px;
+  margin-top: 0em;
+  margin-bottom: 4em;
 }
 
 .conteudo-wrap div.caixaDePesquisa {
@@ -310,10 +310,12 @@ table {
 
 .topRatedList {
   margin-top: 35px;
+  width: 100%;
+  padding: 0px 40px;
 }
 
 .topRatedList th {
-  text-align: left;
+  text-align: center;
   vertical-align: middle;
   border: none;
   border-bottom: 1px solid goldenrod;
@@ -427,6 +429,54 @@ table {
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1);
   background: transparent;
+}
+
+.filtros {
+  width: 100%;
+  display: block;
+  justify-content: flex-start;
+  align-items: flex-start;
+  align-content: flex-start;
+}
+
+.filtros div.ordenar {
+  margin: 0px 55px;
+  margin-top: 20px;
+  font-size: 0.8em;
+  transition: 0.2s;
+  border-radius: 8px;
+  border-color: goldenrod;
+  border-style: solid;
+  border-width: 0.1em;
+  width: 200px;
+}
+
+.ordenar div.texto {
+  margin: 10px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+}
+
+.ordenar div.selecao {
+  margin: 10px 15px;
+  display: block;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+}
+
+.closed {
+  display: none;
+}
+
+.ordenar div.texto h2 {
+  margin: 0px;
+}
+
+.ordenar div.selecao h3 {
+  margin: 0px;
 }
 
 ::-webkit-scrollbar {
