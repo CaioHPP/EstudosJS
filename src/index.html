@@ -7,6 +7,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Meu Site</title>
   <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
 </head>
 
 <body class="gradiente">
@@ -18,289 +24,342 @@
         </div>
         <div class="direita">
           <div class="header">
-            <a class="active" href="#home">Home</a>
+            <a class="active" href="index.html">Home</a>
             <a href="#contact">Contact</a>
           </div>
         </div>
       </div>
     </div>
   </header>
+  <div class="conteudoSite">
 
-  <section id="busca" class="inner-content nova-sessao">
-    <div class="conteudo">
-      <div class="conteudo-wrap">
-        <div class="textoBemVindo">
-          <h2>Bem Vindo!</h2>
-          <h3>Este e um site feito para um estudo de Web.</h3>
-        </div>
-        <div class="caixaDePesquisa">
-          <div class="form">
-            <label for="">
-              <input id="queryBusca" name="query" type="text" placeholder="Busque por um filme..." />
-            </label>
-            </form>
+    <section id="busca" class="inner-content nova-sessao">
+      <div class="conteudo">
+        <div class="conteudo-wrap">
+          <div class="textoBemVindo">
+            <h2>Bem Vindo!</h2>
+            <h3>Este e um site feito para um estudo de Web.</h3>
           </div>
-        </div>
-      </div>
-  </section>
-  <section id="nosCinemas" class="inner-content nova-sessao">
-    <div class="conteudo-filmes">
-      <div class="header-section">
-        <h2>Nos Cinemas</h2>
-      </div>
-      <div class="midia">
-        <div class="colunas">
-          <div class="coluna">
-            <div class="imagem">
-              <a id="filme1" href="" class="imagem">
-                <img src="https://picsum.photos/200/300" alt="">
-              </a>
-            </div>
-            <div class="informacoes">
-              <h2><a id="filme1" href="" title="Filme 1: O Filme">Filme 1: O Filme</a></h2>
-              <p>Acao Comedia Tragedia</p>
-              <p>12 de maio de 2022</p>
-            </div>
-          </div>
-          <div class="coluna">
-            <div class="imagem">
-              <a id="filme1" href="" class="imagem">
-                <img src="https://picsum.photos/250/300" alt="">
-              </a>
-            </div>
-            <div class="informacoes">
-              <h2><a id="filme1" href="" title="Filme 2: O Filme">Filme 2: O Filme</a></h2>
-              <p>Acao Comedia Tragedia</p>
-              <p>12 de maio de 2022</p>
-            </div>
-          </div>
-          <div class="coluna">
-            <div class="imagem">
-              <a id="filme1" href="" class="imagem">
-                <img src="https://picsum.photos/220/300" alt="">
-              </a>
-            </div>
-            <div class="informacoes">
-              <h2><a id="filme1" href="" title="Filme 3: O Filme">Filme 3: O Filme</a></h2>
-              <p>Acao Comedia Tragedia</p>
-              <p>12 de maio de 2022</p>
+          <div class="caixaDePesquisa">
+            <div class="form">
+              <label for="">
+                <input id="queryBusca" name="query" type="text" placeholder="Busque por um filme..." />
+              </label>
+              </form>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  </section>
-  <section id="topRated" class="inner-content nova-sessao">
-    <div class="conteudo-filmes">
-      <div class="header-section">
-        <h2>Mais bem avaliados</h2>
-      </div>
-    </div>
-    <div class="filtros">
-      <div class="ordenar">
-        <div class="texto">
-          <h2>Ordenar</h2>
-          <span class="icone">icone</span>
+    </section>
+    <section id="nosCinemas" class="inner-content nova-sessao">
+      <div class="conteudo-filmes">
+        <div class="header-section">
+          <h2>Nos Cinemas</h2>
         </div>
-        <div class="selecao closed">
-          <h3>Ordenar por:</h3>
-          <select name="" id="">
-            <option value="notaMaior">Melhor Avaliacao</option>
-            <option value="notaMenor">Pior Avaliacao</option>
-            <option value="votosMaior">Mais Votado</option>
-            <option value="votosMenor">Menos Votado</option>
-
-          </select>
+        <div class="midia">
+          <div class="colunas">
+            <div class="coluna">
+              <div class="imagem">
+                <a id="filme1" href="detalhesFilme.html" class="imagem">
+                  <img src="https://picsum.photos/200/300" alt="">
+                </a>
+              </div>
+              <div class="informacoes">
+                <h2><a id="filme1" href="" title="Filme 1: O Filme">Filme 1: O Filme</a></h2>
+                <p>Acao Comedia Tragedia</p>
+                <p>12 de maio de 2022</p>
+              </div>
+            </div>
+            <div class="coluna">
+              <div class="imagem">
+                <a id="filme" href="" class="imagem">
+                  <img src="https://picsum.photos/250/300" alt="">
+                </a>
+              </div>
+              <div class="informacoes">
+                <h2><a id="filme" href="" title="Filme 2: O Filme">Filme 2: O Filme</a></h2>
+                <p>Acao Comedia Tragedia</p>
+                <p>12 de maio de 2022</p>
+              </div>
+            </div>
+            <div class="coluna">
+              <div class="imagem">
+                <a id="filme" href="" class="imagem">
+                  <img src="https://picsum.photos/220/300" alt="">
+                </a>
+              </div>
+              <div class="informacoes">
+                <h2><a id="filme" href="" title="Filme 3: O Filme">Filme 3: O Filme</a></h2>
+                <p>Acao Comedia Tragedia</p>
+                <p>12 de maio de 2022</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="topRatedList">
-      <table>
-        <thead>
-          <tr>
-            <th class="rank">Rank</th>
-            <th class="nomeFilme">Nome</th>
-            <th class="notaAvaliacao">Avaliacao dos Usuarios</th>
-            <th class="votos">N.º de Votos</th>
-            <th class="anoLancamento">Ano de Lancamento</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td id="rank" class="celulaOrdem">1</td>
-            <td>
-              <a id="primeiroFilme" class="celulaNome tooltip" href>
-                Filme 1: O Filme
-                <span class="tooltipContent">
-                  <div class="tooltipImagem">
-                    <div class="imagem">
-                      <img src="https://picsum.photos/200/300" alt="">
-                    </div>
-                  </div>
-                  <div class="tooltipTexto">
-                    <h2>Filme 1: O Filme</h2>
-                    <h3>Acao Comedia Tragedia</h3>
-                    <p>O filme retrata sobre Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vehicula
-                      viverra mi eget efficitur. Integer finibus viverra dui blandit elementum. Nunc quis suscipit est,
-                      id pulvinar velit. Proin faucibus felis in ipsum cursus euismod. Ut semper commodo risus, eu
-                      viverra orci elementum et. Aliquam nisi elit, tincidunt ut lobortis ac, ullamcorper at odio.
-                      Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Duis id
-                      aliquam risus, non pharetra ex. Proin at tristique sem. Morbi at ex neque. Donec aliquam mattis
-                      blandit. Maecenas laoreet elit in finibus scelerisque.</p>
-                  </div>
-                </span>
-              </a>
-            </td>
-            <td id="nota" class="celulaNota">8.7</td>
-            <td id="nVotos" class="celulaVotos">28574</td>
-            <td id="ano" class="celulaAno">1989</td>
-          </tr>
-          <tr>
-            <td id="rank" class="celulaOrdem">2</td>
-            <td>
-              <a id="primeiroFilme" class="celulaNome tooltip" href>
-                Filme 2: O Filme
-                <span class="tooltipContent">
-                  <div class="tooltipImagem">
-                    <div class="imagem">
-                      <img src="https://picsum.photos/250/300" alt="">
-                    </div>
-                  </div>
-                  <div class="tooltipTexto">
-                    <h2>Filme 2: O Filme</h2>
-                    <h3>Acao Comedia Tragedia</h3>
-                    <p>O filme retrata sobre Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vehicula
-                      viverra mi eget efficitur. Integer finibus viverra dui blandit elementum. Nunc quis suscipit est,
-                      id pulvinar velit. Proin faucibus felis in ipsum cursus euismod. Ut semper commodo risus, eu
-                      viverra orci elementum et. Aliquam nisi elit, tincidunt ut lobortis ac, ullamcorper at odio.
-                      Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Duis id
-                      aliquam risus, non pharetra ex. Proin at tristique sem. Morbi at ex neque. Donec aliquam mattis
-                      blandit. Maecenas laoreet elit in finibus scelerisque.</p>
-                  </div>
-                </span>
-              </a>
-            <td id="nota" class="celulaNota">8.6</td>
-            <td id="nVotos" class="celulaVotos">28250</td>
-            <td id="ano" class="celulaAno">1990</td>
-          </tr>
-          <tr>
-            <td id="rank" class="celulaOrdem">3</td>
-            <td>
-              <a id="primeiroFilme" class="celulaNome tooltip" href>
-                Filme 3: O Filme
-                <span class="tooltipContent">
-                  <div class="tooltipImagem">
-                    <div class="imagem">
-                      <img src="https://picsum.photos/220/300" alt="">
-                    </div>
-                  </div>
-                  <div class="tooltipTexto">
-                    <h2>Filme 3: O Filme</h2>
-                    <h3>Acao Comedia Tragedia</h3>
-                    <p>O filme retrata sobre Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vehicula
-                      viverra mi eget efficitur. Integer finibus viverra dui blandit elementum. Nunc quis suscipit est,
-                      id pulvinar velit. Proin faucibus felis in ipsum cursus euismod. Ut semper commodo risus, eu
-                      viverra orci elementum et. Aliquam nisi elit, tincidunt ut lobortis ac, ullamcorper at odio.
-                      Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Duis id
-                      aliquam risus, non pharetra ex. Proin at tristique sem. Morbi at ex neque. Donec aliquam mattis
-                      blandit. Maecenas laoreet elit in finibus scelerisque.</p>
-                  </div>
-                </span>
-              </a>
-            <td id="nota" class="celulaNota">8.2</td>
-            <td id="nVotos" class="celulaVotos">19000</td>
-            <td id="ano" class="celulaAno">1995</td>
-          </tr>
-          <tr>
-            <td id="rank" class="celulaOrdem">4</td>
-            <td>
-              <a id="primeiroFilme" class="celulaNome tooltip" href>
-                Filme 4: O Filme
-                <span class="tooltipContent">
-                  <div class="tooltipImagem">
-                    <div class="imagem">
-                      <img src="https://picsum.photos/200/310" alt="">
-                    </div>
-                  </div>
-                  <div class="tooltipTexto">
-                    <h2>Filme 4: O Filme</h2>
-                    <h3>Acao Comedia Tragedia</h3>
-                    <p>O filme retrata sobre Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vehicula
-                      viverra mi eget efficitur. Integer finibus viverra dui blandit elementum. Nunc quis suscipit est,
-                      id pulvinar velit. Proin faucibus felis in ipsum cursus euismod. Ut semper commodo risus, eu
-                      viverra orci elementum et. Aliquam nisi elit, tincidunt ut lobortis ac, ullamcorper at odio.
-                      Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Duis id
-                      aliquam risus, non pharetra ex. Proin at tristique sem. Morbi at ex neque. Donec aliquam mattis
-                      blandit. Maecenas laoreet elit in finibus scelerisque.</p>
-                  </div>
-                </span>
-              </a>
-            <td id="nota" class="celulaNota">8.0</td>
-            <td id="nVotos" class="celulaVotos">20514</td>
-            <td id="ano" class="celulaAno">2002</td>
-          </tr>
-          <tr>
-            <td id="rank" class="celulaOrdem">5</td>
-            <td>
-              <a id="primeiroFilme" class="celulaNome tooltip" href>
-                Filme 5: O Filme
-                <span class="tooltipContent">
-                  <div class="tooltipImagem">
-                    <div class="imagem">
-                      <img src="https://picsum.photos/200/320" alt="">
-                    </div>
-                  </div>
-                  <div class="tooltipTexto">
-                    <h2>Filme 5: O Filme</h2>
-                    <h3>Acao Comedia Tragedia</h3>
-                    <p>O filme retrata sobre Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vehicula
-                      viverra mi eget efficitur. Integer finibus viverra dui blandit elementum. Nunc quis suscipit est,
-                      id pulvinar velit. Proin faucibus felis in ipsum cursus euismod. Ut semper commodo risus, eu
-                      viverra orci elementum et. Aliquam nisi elit, tincidunt ut lobortis ac, ullamcorper at odio.
-                      Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Duis id
-                      aliquam risus, non pharetra ex. Proin at tristique sem. Morbi at ex neque. Donec aliquam mattis
-                      blandit. Maecenas laoreet elit in finibus scelerisque.</p>
-                  </div>
-                </span>
-              </a>
-            <td id="nota" class="celulaNota">8.0</td>
-            <td id="nVotos" class="celulaVotos">18405 </td>
-            <td id="ano" class="celulaAno">2007</td>
-          </tr>
-          <tr>
-            <td id="rank" class="celulaOrdem">6</td>
-            <td>
-              <a id="primeiroFilme" class="celulaNome tooltip" href>
-                Filme 6: Reborn
-                <span class="tooltipContent">
-                  <div class="tooltipImagem">
-                    <div class="imagem">
-                      <img src="https://picsum.photos/210/310" alt="">
-                    </div>
-                  </div>
-                  <div class="tooltipTexto">
-                    <h2>Filme 6: Reborn </h2>
-                    <h3>Acao Comedia Tragedia</h3>
-                    <p>O filme retrata sobre Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vehicula
-                      viverra mi eget efficitur. Integer finibus viverra dui blandit elementum. Nunc quis suscipit est,
-                      id pulvinar velit. Proin faucibus felis in ipsum cursus euismod. Ut semper commodo risus, eu
-                      viverra orci elementum et. Aliquam nisi elit, tincidunt ut lobortis ac, ullamcorper at odio.
-                      Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Duis id
-                      aliquam risus, non pharetra ex. Proin at tristique sem. Morbi at ex neque. Donec aliquam mattis
-                      blandit. Maecenas laoreet elit in finibus scelerisque.</p>
-                  </div>
-                </span>
-              </a>
-            <td id="nota" class="celulaNota">6.7</td>
-            <td id="nVotos" class="celulaVotos">65104</td>
-            <td id="ano" class="celulaAno">2020</td>
-          </tr>
+    </section>
+    <section id="topRated" class="inner-content nova-sessao">
+      <div class="conteudo-filmes">
+        <div class="header-section">
+          <h2>Mais bem avaliados</h2>
+        </div>
+      </div>
+      <div class="opcoes">
+        <div class="ordenar">
+          <div class="texto">
+            <h2>Ordenar</h2>
+            <span class="material-symbols-outlined">
+              chevron_right
+            </span>
+          </div>
+          <div class="selecao closed">
+            <h3>Ordenar por:</h3>
+            <select name="" id="">
+              <option value="notaMaior">Melhor Avaliacao</option>
+              <option value="notaMenor">Pior Avaliacao</option>
+              <option value="votosMaior">Mais Votado</option>
+              <option value="votosMenor">Menos Votado</option>
+            </select>
+          </div>
+        </div>
 
-        </tbody>
+        <div class="filtrar">
+          <div class="texto">
+            <h2>Filtrar</h2>
+            <span class="material-symbols-outlined">
+              chevron_right
+            </span>
+          </div>
+          <div class="filtros closed">
+            <h3>Filtrar por:</h3>
+            <div>
+              <div class="opcoes-filtro">
+                <div class="data">
 
-      </table>
-    </div>
-  </section>
+                  <h3>Data de Lancamento:</h3>
+                  <div class="entrada-data">
+
+                    <h4>de:</h4>
+                    <input type="date" name="datamin" id="datamin">
+                    <h4>ate:</h4>
+                    <input type="date" name="datamax" id="datamax">
+                  </div>
+                </div>
+
+                <div class="genero">
+                  <h3>Genero:</h3>
+                  <ul class="generos">
+                    <li>
+                      <a class="no-click">Acao</a>
+                    </li>
+                    <li>
+                      <a class="">Comedia</a>
+                    </li>
+                    <li>
+                      <a class="">Tragedia</a>
+                    </li>
+                  </ul>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="topRatedList">
+        <table>
+          <thead>
+            <tr>
+              <th class="rank">Rank</th>
+              <th class="nomeFilme">Nome</th>
+              <th class="notaAvaliacao">Avaliacao dos Usuarios</th>
+              <th class="votos">N.º de Votos</th>
+              <th class="anoLancamento">Ano de Lancamento</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td id="rank" class="celulaOrdem">1</td>
+              <td>
+                <a id="primeiroFilme" class="celulaNome tooltip" href>
+                  Filme 1: O Filme
+                  <span class="tooltipContent">
+                    <div class="tooltipImagem">
+                      <div class="imagem">
+                        <img src="https://picsum.photos/200/300" alt="">
+                      </div>
+                    </div>
+                    <div class="tooltipTexto">
+                      <h2>Filme 1: O Filme</h2>
+                      <h3>Acao Comedia Tragedia</h3>
+                      <p>O filme retrata sobre Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vehicula
+                        viverra mi eget efficitur. Integer finibus viverra dui blandit elementum. Nunc quis suscipit
+                        est,
+                        id pulvinar velit. Proin faucibus felis in ipsum cursus euismod. Ut semper commodo risus, eu
+                        viverra orci elementum et. Aliquam nisi elit, tincidunt ut lobortis ac, ullamcorper at odio.
+                        Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Duis id
+                        aliquam risus, non pharetra ex. Proin at tristique sem. Morbi at ex neque. Donec aliquam mattis
+                        blandit. Maecenas laoreet elit in finibus scelerisque.</p>
+                    </div>
+                  </span>
+                </a>
+              </td>
+              <td id="nota" class="celulaNota">8.7</td>
+              <td id="nVotos" class="celulaVotos">28574</td>
+              <td id="ano" class="celulaAno">1989</td>
+            </tr>
+            <tr>
+              <td id="rank" class="celulaOrdem">2</td>
+              <td>
+                <a id="primeiroFilme" class="celulaNome tooltip" href>
+                  Filme 2: O Filme
+                  <span class="tooltipContent">
+                    <div class="tooltipImagem">
+                      <div class="imagem">
+                        <img src="https://picsum.photos/250/300" alt="">
+                      </div>
+                    </div>
+                    <div class="tooltipTexto">
+                      <h2>Filme 2: O Filme</h2>
+                      <h3>Acao Comedia Tragedia</h3>
+                      <p>O filme retrata sobre Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vehicula
+                        viverra mi eget efficitur. Integer finibus viverra dui blandit elementum. Nunc quis suscipit
+                        est,
+                        id pulvinar velit. Proin faucibus felis in ipsum cursus euismod. Ut semper commodo risus, eu
+                        viverra orci elementum et. Aliquam nisi elit, tincidunt ut lobortis ac, ullamcorper at odio.
+                        Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Duis id
+                        aliquam risus, non pharetra ex. Proin at tristique sem. Morbi at ex neque. Donec aliquam mattis
+                        blandit. Maecenas laoreet elit in finibus scelerisque.</p>
+                    </div>
+                  </span>
+                </a>
+              <td id="nota" class="celulaNota">8.6</td>
+              <td id="nVotos" class="celulaVotos">28250</td>
+              <td id="ano" class="celulaAno">1990</td>
+            </tr>
+            <tr>
+              <td id="rank" class="celulaOrdem">3</td>
+              <td>
+                <a id="primeiroFilme" class="celulaNome tooltip" href>
+                  Filme 3: O Filme
+                  <span class="tooltipContent">
+                    <div class="tooltipImagem">
+                      <div class="imagem">
+                        <img src="https://picsum.photos/220/300" alt="">
+                      </div>
+                    </div>
+                    <div class="tooltipTexto">
+                      <h2>Filme 3: O Filme</h2>
+                      <h3>Acao Comedia Tragedia</h3>
+                      <p>O filme retrata sobre Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vehicula
+                        viverra mi eget efficitur. Integer finibus viverra dui blandit elementum. Nunc quis suscipit
+                        est,
+                        id pulvinar velit. Proin faucibus felis in ipsum cursus euismod. Ut semper commodo risus, eu
+                        viverra orci elementum et. Aliquam nisi elit, tincidunt ut lobortis ac, ullamcorper at odio.
+                        Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Duis id
+                        aliquam risus, non pharetra ex. Proin at tristique sem. Morbi at ex neque. Donec aliquam mattis
+                        blandit. Maecenas laoreet elit in finibus scelerisque.</p>
+                    </div>
+                  </span>
+                </a>
+              <td id="nota" class="celulaNota">8.2</td>
+              <td id="nVotos" class="celulaVotos">19000</td>
+              <td id="ano" class="celulaAno">1995</td>
+            </tr>
+            <tr>
+              <td id="rank" class="celulaOrdem">4</td>
+              <td>
+                <a id="primeiroFilme" class="celulaNome tooltip" href>
+                  Filme 4: O Filme
+                  <span class="tooltipContent">
+                    <div class="tooltipImagem">
+                      <div class="imagem">
+                        <img src="https://picsum.photos/200/310" alt="">
+                      </div>
+                    </div>
+                    <div class="tooltipTexto">
+                      <h2>Filme 4: O Filme</h2>
+                      <h3>Acao Comedia Tragedia</h3>
+                      <p>O filme retrata sobre Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vehicula
+                        viverra mi eget efficitur. Integer finibus viverra dui blandit elementum. Nunc quis suscipit
+                        est,
+                        id pulvinar velit. Proin faucibus felis in ipsum cursus euismod. Ut semper commodo risus, eu
+                        viverra orci elementum et. Aliquam nisi elit, tincidunt ut lobortis ac, ullamcorper at odio.
+                        Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Duis id
+                        aliquam risus, non pharetra ex. Proin at tristique sem. Morbi at ex neque. Donec aliquam mattis
+                        blandit. Maecenas laoreet elit in finibus scelerisque.</p>
+                    </div>
+                  </span>
+                </a>
+              <td id="nota" class="celulaNota">8.0</td>
+              <td id="nVotos" class="celulaVotos">20514</td>
+              <td id="ano" class="celulaAno">2002</td>
+            </tr>
+            <tr>
+              <td id="rank" class="celulaOrdem">5</td>
+              <td>
+                <a id="primeiroFilme" class="celulaNome tooltip" href>
+                  Filme 5: O Filme
+                  <span class="tooltipContent">
+                    <div class="tooltipImagem">
+                      <div class="imagem">
+                        <img src="https://picsum.photos/200/320" alt="">
+                      </div>
+                    </div>
+                    <div class="tooltipTexto">
+                      <h2>Filme 5: O Filme</h2>
+                      <h3>Acao Comedia Tragedia</h3>
+                      <p>O filme retrata sobre Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vehicula
+                        viverra mi eget efficitur. Integer finibus viverra dui blandit elementum. Nunc quis suscipit
+                        est,
+                        id pulvinar velit. Proin faucibus felis in ipsum cursus euismod. Ut semper commodo risus, eu
+                        viverra orci elementum et. Aliquam nisi elit, tincidunt ut lobortis ac, ullamcorper at odio.
+                        Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Duis id
+                        aliquam risus, non pharetra ex. Proin at tristique sem. Morbi at ex neque. Donec aliquam mattis
+                        blandit. Maecenas laoreet elit in finibus scelerisque.</p>
+                    </div>
+                  </span>
+                </a>
+              <td id="nota" class="celulaNota">8.0</td>
+              <td id="nVotos" class="celulaVotos">18405 </td>
+              <td id="ano" class="celulaAno">2007</td>
+            </tr>
+            <tr>
+              <td id="rank" class="celulaOrdem">6</td>
+              <td>
+                <a id="primeiroFilme" class="celulaNome tooltip" href>
+                  Filme 6: Reborn
+                  <span class="tooltipContent">
+                    <div class="tooltipImagem">
+                      <div class="imagem">
+                        <img src="https://picsum.photos/210/310" alt="">
+                      </div>
+                    </div>
+                    <div class="tooltipTexto">
+                      <h2>Filme 6: Reborn </h2>
+                      <h3>Acao Comedia Tragedia</h3>
+                      <p>O filme retrata sobre Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vehicula
+                        viverra mi eget efficitur. Integer finibus viverra dui blandit elementum. Nunc quis suscipit
+                        est,
+                        id pulvinar velit. Proin faucibus felis in ipsum cursus euismod. Ut semper commodo risus, eu
+                        viverra orci elementum et. Aliquam nisi elit, tincidunt ut lobortis ac, ullamcorper at odio.
+                        Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Duis id
+                        aliquam risus, non pharetra ex. Proin at tristique sem. Morbi at ex neque. Donec aliquam mattis
+                        blandit. Maecenas laoreet elit in finibus scelerisque.</p>
+                    </div>
+                  </span>
+                </a>
+              <td id="nota" class="celulaNota">6.7</td>
+              <td id="nVotos" class="celulaVotos">65104</td>
+              <td id="ano" class="celulaAno">2020</td>
+            </tr>
+
+          </tbody>
+
+        </table>
+      </div>
+    </section>
+  </div>
 </body>
 
 </html>
