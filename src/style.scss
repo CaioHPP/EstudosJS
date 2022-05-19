@@ -32,7 +32,7 @@ header {
   align-items: center;
   top: 0;
   left: 0;
-  height: 45px;
+  height: 70px;
   color: white;
   font-size: 20px;
   width: 100%;
@@ -144,7 +144,7 @@ section {
   overflow-x: auto;
 }
 
-.filme {
+.detalhes-filme {
   display: flex;
   flex-wrap: nowrap;
   padding: 30px 40px;
@@ -253,25 +253,39 @@ section {
   width: 100%;
 }
 
-.conteudo-wrap div.form {
+.conteudo-wrap form {
   margin-top: 30px;
   position: relative;
   top: 0;
   left: 0;
-}
-
-.caixaDePesquisa > div.form input {
-  width: -webkit-fill-available;
-  height: 20px;
-  line-height: 46px;
-  font-size: 1.1em;
-  color: $primario_1;
-  border: none;
-  border-radius: 30px;
-  outline: 0;
-  padding: 10px 20px;
-  margin-top: 30px;
-  display: inline-block;
+  label {
+    display: flex;
+  }
+  input[type="submit"] {
+    display: inline-flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    height: 46px;
+    padding: 10px 26px;
+    border-radius: 30px;
+    position: absolute;
+    top: 0;
+    right: -1px;
+    background: $primario_2;
+    color: $primario_3;
+  }
+  input[type="text"] {
+    width: 100%;
+    height: 26px;
+    line-height: 46px;
+    font-size: 1.1em;
+    color: $primario_1;
+    border: none;
+    border-radius: 30px;
+    outline: 0;
+    padding: 10px 20px;
+  }
 }
 
 .textoBemVindo > h2 {
@@ -312,7 +326,7 @@ section {
 }
 .midia {
   width: 100%;
-  display: flexbox;
+  display: flex;
   justify-content: center;
   flex-wrap: wrap;
   align-items: flex-start;
@@ -322,32 +336,47 @@ section {
 .midia div.colunas {
   height: auto;
   width: 100%;
-  max-width: var(--maxPrimaryPageWidth);
   min-height: 300px;
-  display: flex;
+  display: inline-flex;
   justify-content: flex-start;
   align-items: flex-start;
   align-content: flex-start;
   padding-top: 20px;
-  padding-bottom: 30px;
   background: transparent;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  .pessoa {
+    margin-bottom: 30px;
+    display: block;
+    height: auto;
+  }
+  .filme {
+    margin-bottom: 30px;
+    width: 400px;
+    height: 300px;
+    display: inline-flex;
+  }
+  .pesquisa {
+    margin-left: 50px;
+  }
+}
+.midia div.resultado {
+  flex-wrap: wrap;
 }
 
 .midia div.colunas div.coluna {
   margin-left: 40px;
-  width: 150px;
-  min-width: 150px;
-}
 
-.midia div.colunas div.coluna div.imagem {
-  box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1);
-  width: 100%;
-  min-height: calc(150px * 1.5);
-  height: calc(150px * 1.5);
-  border-radius: 8px;
-  background: transparent;
-  overflow: hidden;
-  transition: 0.3s;
+  height: 300;
+  .imagem {
+    ///box-shadow: 0 2px 1px rgba(255, 255, 255, 0.1);
+    min-height: calc(150px * 1.5);
+    border-radius: 8px;
+    background: transparent;
+    transition: 0.3s;
+    height: auto;
+    width: 200px;
+  }
 }
 
 .midia div.colunas div.coluna div.imagem:hover {
@@ -355,22 +384,45 @@ section {
 }
 
 .midia div.colunas div.coluna div.imagem img {
-  display: inline-block;
   width: 100%;
   height: 100%;
 }
 
 .midia div.colunas div.coluna .informacoes {
   margin-top: -12px;
+  display: block;
+  width: 200px;
+  height: auto;
+  padding: 0px 10px;
+  ul > li {
+    cursor: default;
+  }
+  .overview {
+    h3 {
+      font-size: 0.9em;
+      display: inline-flex;
+      margin: 0;
+    }
+    text-align: justify;
+    margin-top: 0px;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 10;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    width: 100%;
+  }
 }
 
 .midia div.colunas div.coluna div.informacoes h2 {
   font-weight: 700;
   font-size: 1.2em;
-  margin-bottom: -10px;
+  margin-bottom: 10px;
 }
 .midia div.colunas div.coluna div.informacoes p {
-  margin-bottom: -10px;
+  font-size: 0.7em;
+  margin: 0;
 }
 
 .midia div.colunas div.coluna div.informacoes h2 a {
@@ -468,18 +520,18 @@ table {
 
 .tooltip .tooltipContent {
   visibility: hidden;
-  width: 30em;
-  height: 20em;
+  width: 350px;
+  height: 300px;
   background-color: $primario_1;
   color: #fff;
   border-radius: 8px;
   padding: 5px 10px;
   position: absolute;
-  z-index: 1;
+  z-index: 5;
   justify-content: flex-start;
   display: flex;
-  bottom: 80%;
-  left: 105%;
+  bottom: -50%;
+  left: 90%;
 }
 
 .tooltip:hover .tooltipContent {
@@ -504,22 +556,26 @@ table {
 .tooltipTexto p {
   text-align: justify;
   margin: 0;
-  padding: 20px 10px;
+  padding: 0px 10px;
 }
 
 .tooltipImagem {
   padding: 10px 5px;
-}
-
-.tooltipImagem img {
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1);
-  background: transparent;
+  width: 170px;
+  height: 280px;
+  img {
+    min-height: 225px;
+    border-radius: 8px;
+    height: 280px;
+    width: 170px;
+    background: transparent;
+    box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1);
+  }
 }
 
 .opcoes {
   width: 100%;
-  height: 120px;
+  height: auto;
   min-height: 120px;
   display: flex;
   justify-content: flex-start;
@@ -535,15 +591,21 @@ table {
   border-color: $primario_3;
   border-style: solid;
   border-width: 0.1em;
-  width: 200px;
+  width: 300px;
+  a {
+    cursor: pointer;
+  }
 }
 
-.ordenar div.texto {
-  margin: 10px 15px;
+.opcoes div.texto {
+  margin: 0;
   display: flex;
   justify-content: space-between;
   align-content: center;
   align-items: center;
+  span {
+    margin-right: 5px;
+  }
 }
 
 .ordenar div.selecao {
@@ -551,13 +613,17 @@ table {
   justify-content: space-between;
   align-content: center;
   align-items: center;
+  cursor: default;
+  min-height: 60px;
 }
 
-.ordenar div.texto h2 {
-  margin: 0px;
+.opcoes div.texto h2 {
+  margin: 10px 0px;
+  margin-left: 10px;
 }
 .ordenar div.selecao h3 {
   margin: 0px;
+  margin-top: 10px;
 }
 
 .opcoes div.filtrar {
@@ -570,21 +636,20 @@ table {
   border-style: solid;
   border-width: 0.1em;
   width: 100%;
+  cursor: pointer;
+  .filtros {
+    min-height: 120px;
+    cursor: default;
+  }
 }
 
-.filtrar div.texto {
-  margin: 10px 15px;
-  display: flex;
-  justify-content: space-between;
-  align-content: center;
-  align-items: center;
-}
-
-.filtrar div.texto h2 {
-  margin: 0px;
-}
 .filtrar h3 {
   margin: 0px;
+}
+
+.filtrar div.filtros h3 {
+  margin-bottom: 10px;
+  margin-left: 15px;
 }
 
 .filtrar div.filtros div.opcoes-filtro {
@@ -593,10 +658,21 @@ table {
 }
 
 div.opcoes-filtro div.data {
-  display: flex;
-}
-div.data input {
-  height: 30px;
+  display: block;
+  .entrada-data {
+    display: flex;
+    align-items: baseline;
+    margin-left: 15px;
+    h4 {
+      margin-top: 0px;
+      margin-right: 5px;
+    }
+    input {
+      height: 20px;
+      border-radius: 5px;
+      margin-right: 5px;
+    }
+  }
 }
 
 div.opcoes-filtro div.genero {
@@ -606,26 +682,32 @@ div.opcoes-filtro div.genero {
 div.genero ul {
   display: block;
   list-style-type: none;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  padding-left: 0;
 }
 div.genero ul > li {
   display: inline-flex;
   border: 1px solid #9e9e9e;
   border-radius: 14px;
-  padding: 4px 12px;
-  font-size: 0.9em;
-  margin-right: 6px;
+  padding: 2px 5px;
+  font-size: 0.8em;
+  margin-right: 2px;
   margin-top: 8px;
   cursor: pointer;
 }
 
-div.genero ul > li:hover {
+.filtrar div.genero ul > li:hover {
   display: inline-flex;
   border: 1px solid $primario_3;
   border-radius: 14px;
-  padding: 4px 12px;
-  font-size: 0.9em;
-  margin-right: 6px;
-  margin-top: 8px;
+}
+
+.filtrar div.genero ul > li:active {
+  display: inline-flex;
+  color: $primario_3;
+  border: 1px solid $primario_3;
+  border-radius: 14px;
 }
 
 .closed {
