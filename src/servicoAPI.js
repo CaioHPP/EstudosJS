@@ -4,18 +4,18 @@ const keyAPI = "?api_key=721dc9f1ceea2fe30a6f0514d5586aa7";
 const lingua = "pt-BR";
 const regiao = "BR";
 
-const generos = () => {
+export const generosExistentes = () => {
   const url = `${urlAPI}genre/movie/list${keyAPI}&language=${lingua}`;
   const response = axios.get(url);
-
   return response;
 };
 
-const getGenero = (id, generos) => generos.find((genero) => genero.id === id);
+export const getGenero = (id, generos) =>
+  generos.find((genero) => genero.id === id);
 
-function buscaFilme(texto) {
+export function buscaFilme(texto) {
   const url = `${urlAPI}search/movie${keyAPI}&language=${lingua}&region=${regiao}&query=${texto}`;
-  encodedurl = encodeURI(url);
+  let encodedurl = encodeURI(url);
   console.log(encodedurl);
   const response = axios.get(encodedurl);
   return response;
@@ -29,7 +29,7 @@ export function emCartaz() {
 
 function filmesTopzeira() {
   const url = `${urlAPI}movie/top_rated${keyAPI}&language=${lingua}&region=${regiao}`;
-  encodedurl = encodeURI(url);
+  let encodedurl = encodeURI(url);
   console.log(encodedurl);
   const response = axios.get(encodedurl);
   return response;
