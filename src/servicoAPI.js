@@ -16,7 +16,7 @@ export const getGenero = (id, generos) =>
 export function buscaFilme(texto) {
   const url = `${urlAPI}search/movie${keyAPI}&language=${lingua}&region=${regiao}&query=${texto}`;
   let encodedurl = encodeURI(url);
-  console.log(encodedurl);
+
   const response = axios.get(encodedurl);
   return response;
 }
@@ -27,6 +27,13 @@ export function emCartaz() {
   return response;
 }
 
+export function detalhesFilme(idFilme) {
+  const url = `${urlAPI}movie/${idFilme}${keyAPI}&language=${lingua}&append_to_response=releases,credits`;
+  let encodedurl = encodeURI(url);
+  const response = axios.get(encodedurl);
+  return response;
+}
+
 function filmesTopzeira() {
   const url = `${urlAPI}movie/top_rated${keyAPI}&language=${lingua}&region=${regiao}`;
   let encodedurl = encodeURI(url);
@@ -34,31 +41,3 @@ function filmesTopzeira() {
   const response = axios.get(encodedurl);
   return response;
 }
-/*
-buscaFilme("Jack").then(({ data: { results } }) => {
-  let jorge;
-  generos().then(({ data: { genres: generos } }) => {
-    jorge = results.map((filme) => {
-      filme.genre_ids = filme.genre_ids.map((id) => {
-        return getGenero(id, generos).name;
-      });
-      return filme;
-    });
-    console.log(jorge);
-  });
-});
-
- 
-nosCinemas()
-  .then(({ data }) => {
-    console.log(data.results);
-  })
-  .catch(console.log);
-
-/*
-filmesTopzeira()
-.then(({data})=>{
-    console.log()
-})
-.catch(console.log)
-*/
