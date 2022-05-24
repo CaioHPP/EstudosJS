@@ -8,8 +8,139 @@ import { generosExistentes } from "./servicoAPI.js";
 
 import { getGenero } from "./servicoAPI.js";
 
-function dataBR(data) {
-  return `${data.getDate()}/${data.getMonth()}/${data.getFullYear()}`;
+function montaDetalhes() {
+  return `<div id="conteudoIndex">
+  <div class="conteudoDetalhes">
+    <section class="inner-content nova-sessao" id="sessao">
+      <div class="detalhes-filme" id="grad">
+        <div class="poster">
+          <img alt="Imagem do Filme" id="posterFilme" />
+        </div>
+        <div class="conteudo-filme">
+          <div class="titulo">
+            <h2 id="nomeFilme"></h2>
+            <span class="data" id="anoFilme"></span>
+          </div>
+          <div class="descricao">
+            <div class="informacoes">
+              <span class="classificao" id="classificacao"></span>
+              <span class="dataFilme" id="dataFilme"></span>
+              <div class="genero">
+                <ol class="generos" id="generos">
+                </ol>
+              </div>
+              <span class="material-symbols-outlined"> schedule </span>
+              <span class="duracao" id="duracao"></span>
+            </div>
+            <div class="sinopse">
+              <h3>Sinopse</h3>
+              <div class="texto">
+                <p id="overview"></p>
+              </div>
+            </div>
+            <div class="arte">
+              <ol id="criacao">
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="inner-content nova-sessao">
+      <div class="conteudo-filmes">
+        <div class="header-section">
+          <h2>Elenco Principal</h2>
+        </div>
+        <div class="midia">
+          <div class="colunas">
+            <div class="coluna pessoa">
+              <div class="imagem">
+                <img src="https://picsum.photos/200/300" alt="" />
+              </div>
+              <div class="informacoes">
+                <h4 class="nome">Nome da pessoa</h4>
+                <h5 class="papel">Papel da pessoa</h5>
+              </div>
+            </div>
+
+            <div class="coluna pessoa">
+              <div class="imagem">
+                <img src="https://picsum.photos/200/300" alt="" />
+              </div>
+              <div class="informacoes">
+                <h4 class="nome">Nome da pessoa</h4>
+                <h5 class="papel">Papel da pessoa</h5>
+              </div>
+            </div>
+
+            <div class="coluna pessoa">
+              <div class="imagem">
+                <img src="https://picsum.photos/200/300" alt="" />
+              </div>
+              <div class="informacoes">
+                <h4 class="nome">Nome da pessoa</h4>
+                <h5 class="papel">Papel da pessoa</h5>
+              </div>
+            </div>
+
+            <div class="coluna pessoa">
+              <div class="imagem">
+                <img src="https://picsum.photos/200/300" alt="" />
+              </div>
+              <div class="informacoes">
+                <h4 class="nome">Nome da pessoa</h4>
+                <h5 class="papel">Papel da pessoa</h5>
+              </div>
+            </div>
+
+            <div class="coluna pessoa">
+              <div class="imagem">
+                <img src="https://picsum.photos/200/300" alt="" />
+              </div>
+              <div class="informacoes">
+                <h4 class="nome">Nome da pessoa</h4>
+                <h5 class="papel">Papel da pessoa</h5>
+              </div>
+            </div>
+
+            <div class="coluna pessoa">
+              <div class="imagem">
+                <img src="https://picsum.photos/200/300" alt="" />
+              </div>
+              <div class="informacoes">
+                <h4 class="nome">Nome da pessoa</h4>
+                <h5 class="papel">Papel da pessoa</h5>
+              </div>
+            </div>
+
+            <div class="coluna pessoa">
+              <div class="imagem">
+                <img src="https://picsum.photos/200/300" alt="" />
+              </div>
+              <div class="informacoes">
+                <h4 class="nome">Nome da pessoa</h4>
+                <h5 class="papel">Papel da pessoa</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+`;
+}
+
+function montaResultado() {
+  return `<div class="conteudoPesquisa">
+    <section class="resultadosBusca">
+      <div class="containerResultados">
+        <div class="midia">
+          <div id="resultadoBusca" class="colunas resultado"></div>
+        </div>
+      </div>
+    </section>
+  </div>`;
 }
 
 function montaColuna(filme, tipo) {
@@ -101,20 +232,77 @@ function atualizaBusca(resultados) {
 }
 
 function atualizaDetalhesFilme(filme) {
+  console.log(filme);
+  let caminho = "";
+  if (filme.poster_path) {
+    caminho = `https://image.tmdb.org/t/p/w500/${filme.poster_path}`;
+  } else {
+    caminho =
+      "https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg";
+  }
+  let caminho2 = "";
+  if (filme.backdrop_path) {
+    caminho2 = `https://image.tmdb.org/t/p/original/${filme.backdrop_path}`;
+  }
+  let back = document.getElementById("sessao");
+  back.style.backgroundImage = `url(${caminho2})`;
+  back.style.display = "block";
+  let grad = document.getElementById("grad");
+  grad.style.backgroundImage =
+    "linear-gradient(to right, rgb(26, 26, 26) 150px, rgba(60, 61, 62, 0.84) 100%)";
   let poster = document.getElementById("posterFilme");
-  poster.setAttribute("src", filme.poster_path);
+  poster.setAttribute("src", caminho);
   let nomeFilme = document.getElementById("nomeFilme");
   nomeFilme.append(filme.title);
   let anoFilme = document.getElementById("anoFilme");
-  anoFilme.append(filme.release_date.getFullYear());
+  let data = new Date(filme.release_date);
+  anoFilme.append(data.getFullYear());
   let classificacao = document.getElementById("classificacao");
   classificacao.append(
     filme.releases.countries.find(
       (certificacao) => certificacao.iso_3166_1 === "BR"
-    )
+    ).certification
   );
   let dataFilme = document.getElementById("dataFilme");
-  dataFilme.append(dataBR(filme.release_date));
+  dataFilme.append(data.toLocaleDateString("pt-BR"));
+
+  let ol = document.getElementById("generos");
+  filme.genres.forEach((genero) => {
+    const li = document.createElement("li");
+    li.setAttribute("name", "generoLi");
+    li.append(genero.name);
+    ol.appendChild(li);
+  });
+  let duracao = document.getElementById("duracao");
+  duracao.append(`${Math.floor(filme.runtime / 60)}h${filme.runtime % 60}m`);
+  let overview = document.getElementById("overview");
+  overview.append(filme.overview);
+
+  let criacao = document.getElementById("criacao");
+  let criadores = filme.credits.crew.filter((pessoa) => {
+    return (
+      pessoa.job === "Director" ||
+      pessoa.job === "Screenplay" ||
+      pessoa.job === "Writer" ||
+      pessoa.job === "Characters"
+    );
+  });
+  criadores.sort(function (a, b) {
+    return b.popularity - a.popularity;
+  });
+  criadores.forEach((criador) => {
+    const novoCriador = document.createElement("li");
+    const h4 = document.createElement("h4");
+    const h5 = document.createElement("h5");
+    novoCriador.classList.add("perfil");
+    h4.classList.add("nome");
+    h5.classList.add("papel");
+    h4.append(criador.name);
+    h5.append(criador.job);
+    novoCriador.append(h4);
+    novoCriador.append(h5);
+    criacao.appendChild(novoCriador);
+  });
 }
 
 function atualizaEmCartaz() {
@@ -159,15 +347,12 @@ window.onload = function () {
 
   window.abrirFilme = function (id) {
     let filme = document.getElementById("conteudoSite");
-    fetch("./detalhesFilme.html")
-      .then((resp) => resp.text())
-      .then((html) => (filme.innerHTML = html));
+    filme.innerHTML = montaDetalhes();
     detalhesFilme(id)
       .then(({ data }) => {
         return data;
       })
-      .then(atualizaDetalhesFilme)
-      .then(atualizaGenero);
+      .then(atualizaDetalhesFilme);
   };
 
   function carregaIndex() {
@@ -185,18 +370,9 @@ window.onload = function () {
 
   function carregaPesquisa(query) {
     let pesquisa = document.getElementById("conteudoIndex");
-    pesquisa.innerHTML = `<div class="conteudoPesquisa">
-    <section class="resultadosBusca">
-      <div class="containerResultados">
-        <div class="midia">
-          <div id="resultadoBusca" class="colunas resultado"></div>
-        </div>
-      </div>
-    </section>
-  </div>`;
+    pesquisa.innerHTML = montaResultado();
     buscaFilme(query)
       .then(({ data }) => {
-        console.log("puxei os dados");
         return data.results;
       })
       .then(atualizaBusca)
