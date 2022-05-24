@@ -52,7 +52,7 @@ function montaDetalhes() {
           <h2>Elenco Principal</h2>
         </div>
         <div class="midia">
-          <div class="colunas">
+          <div class="colunas" id="pessoas">
             <div class="coluna pessoa">
               <div class="imagem">
                 <img src="https://picsum.photos/200/300" alt="" />
@@ -63,65 +63,6 @@ function montaDetalhes() {
               </div>
             </div>
 
-            <div class="coluna pessoa">
-              <div class="imagem">
-                <img src="https://picsum.photos/200/300" alt="" />
-              </div>
-              <div class="informacoes">
-                <h4 class="nome">Nome da pessoa</h4>
-                <h5 class="papel">Papel da pessoa</h5>
-              </div>
-            </div>
-
-            <div class="coluna pessoa">
-              <div class="imagem">
-                <img src="https://picsum.photos/200/300" alt="" />
-              </div>
-              <div class="informacoes">
-                <h4 class="nome">Nome da pessoa</h4>
-                <h5 class="papel">Papel da pessoa</h5>
-              </div>
-            </div>
-
-            <div class="coluna pessoa">
-              <div class="imagem">
-                <img src="https://picsum.photos/200/300" alt="" />
-              </div>
-              <div class="informacoes">
-                <h4 class="nome">Nome da pessoa</h4>
-                <h5 class="papel">Papel da pessoa</h5>
-              </div>
-            </div>
-
-            <div class="coluna pessoa">
-              <div class="imagem">
-                <img src="https://picsum.photos/200/300" alt="" />
-              </div>
-              <div class="informacoes">
-                <h4 class="nome">Nome da pessoa</h4>
-                <h5 class="papel">Papel da pessoa</h5>
-              </div>
-            </div>
-
-            <div class="coluna pessoa">
-              <div class="imagem">
-                <img src="https://picsum.photos/200/300" alt="" />
-              </div>
-              <div class="informacoes">
-                <h4 class="nome">Nome da pessoa</h4>
-                <h5 class="papel">Papel da pessoa</h5>
-              </div>
-            </div>
-
-            <div class="coluna pessoa">
-              <div class="imagem">
-                <img src="https://picsum.photos/200/300" alt="" />
-              </div>
-              <div class="informacoes">
-                <h4 class="nome">Nome da pessoa</h4>
-                <h5 class="papel">Papel da pessoa</h5>
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -145,75 +86,83 @@ function montaResultado() {
 
 function montaColuna(filme, tipo) {
   const divColuna = document.createElement("div");
-  divColuna.classList.add("coluna");
-  divColuna.classList.add("filme");
-  if (tipo === "pesquisa") divColuna.classList.add("pesquisa");
-
   const divImagem = document.createElement("div");
-  divImagem.classList.add("imagem");
-
   const aImagem = document.createElement("a");
-  aImagem.classList.add("imagem");
-
-  aImagem.setAttribute("onclick", `abrirFilme(${filme.id})`);
-
   const img = document.createElement("img");
+  const divInformacoes = document.createElement("div");
+  const aNome = document.createElement("a");
+
+  divColuna.classList.add(tipo);
+  divColuna.classList.add("coluna");
+  divImagem.classList.add("imagem");
+  aImagem.classList.add("imagem");
+  divInformacoes.classList.add("informacoes");
+
   let caminho = "";
-  if (filme.poster_path) {
-    caminho = `https://image.tmdb.org/t/p/w500/${filme.poster_path}`;
+  if (filme.poster_path || filme.profile_path) {
+    caminho = `https://image.tmdb.org/t/p/w500/${
+      filme.poster_path || filme.profile_path
+    }`;
   } else {
     caminho =
       "https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg";
   }
-  img.setAttribute("src", caminho);
 
+  img.setAttribute("src", caminho);
   aImagem.appendChild(img);
   divImagem.appendChild(aImagem);
+  aNome.append(filme.title || filme.name);
 
-  const divInformacoes = document.createElement("div");
-  divInformacoes.classList.add("informacoes");
+  if (tipo === "pessoa") {
+    const h4 = document.createElement("h4");
+    const h5 = document.createElement("h5");
+    h4.appendChild(aNome);
+    h5.append(filme.character);
+    divInformacoes.appendChild(h4);
+    divInformacoes.appendChild(h5);
+  } else {
+    if (tipo === "pesquisa") {
+      divColuna.classList.add("filme");
+    }
+    const h2 = document.createElement("h2");
+    const divGenero = document.createElement("div");
+    const ul = document.createElement("ul");
+    const dataLancamento = document.createElement("p");
+    const divDescricao = document.createElement("div");
 
-  const h2 = document.createElement("h2");
-  const aNome = document.createElement("a");
-  aNome.setAttribute("onclick", `abrirFilme(${filme.id})`);
-  aNome.append(filme.title);
+    divGenero.classList.add("genero");
+    ul.classList.add("generos");
+    divDescricao.classList.add("overview");
 
-  h2.appendChild(aNome);
-  divInformacoes.appendChild(h2);
+    h2.appendChild(aNome);
+    divInformacoes.appendChild(h2);
+    divGenero.appendChild(ul);
+    dataLancamento.append(filme.release_date || "");
 
-  const divGenero = document.createElement("div");
-  divGenero.classList.add("genero");
+    ul.setAttribute("id", filme.id);
+    aNome.setAttribute("onclick", `abrirFilme(${filme.id})`);
+    aImagem.setAttribute("onclick", `abrirFilme(${filme.id})`);
 
-  const ul = document.createElement("ul");
-  ul.classList.add("generos");
-  ul.setAttribute("id", filme.id);
-  filme.genre_ids.forEach((genero) => {
-    const li = document.createElement("li");
-    const aLi = document.createElement("a");
-    aLi.setAttribute("name", "generoLi");
-    aLi.append(genero);
-    li.appendChild(aLi);
-    ul.appendChild(li);
-  });
-  divGenero.appendChild(ul);
+    filme.genre_ids.forEach((genero) => {
+      const li = document.createElement("li");
+      const aLi = document.createElement("a");
+      aLi.setAttribute("name", "generoLi");
+      aLi.append(genero);
+      li.appendChild(aLi);
+      ul.appendChild(li);
+    });
+    if (filme.overview) {
+      const descricaoH3 = document.createElement("h3");
+      descricaoH3.append(`Descricao: `);
+      divDescricao.appendChild(descricaoH3);
+      divDescricao.append("\n");
+      divDescricao.append(filme.overview || "Descricao Nao Adicionada");
+    }
 
-  const dataLancamento = document.createElement("p");
-  dataLancamento.append(filme.release_date || "");
-
-  const divDescricao = document.createElement("div");
-  divDescricao.classList.add("overview");
-
-  if (filme.overview) {
-    const descricaoH3 = document.createElement("h3");
-    descricaoH3.append(`Descricao: `);
-    divDescricao.appendChild(descricaoH3);
-    divDescricao.append("\n");
-    divDescricao.append(filme.overview || "Descricao Nao Adicionada");
+    divInformacoes.appendChild(divGenero);
+    divInformacoes.appendChild(dataLancamento);
+    divInformacoes.appendChild(divDescricao);
   }
-
-  divInformacoes.appendChild(divGenero);
-  divInformacoes.appendChild(dataLancamento);
-  divInformacoes.appendChild(divDescricao);
   divColuna.appendChild(divImagem);
   divColuna.appendChild(divInformacoes);
 
@@ -303,6 +252,22 @@ function atualizaDetalhesFilme(filme) {
     novoCriador.append(h5);
     criacao.appendChild(novoCriador);
   });
+
+  const elenco = document.getElementById("pessoas");
+  let atores = filme.credits.cast.filter((pessoa) => {
+    return pessoa.known_for_department === "Acting";
+  });
+  atores.sort(function (a, b) {
+    return b.popularity - a.popularity;
+  });
+  atores.every((ator, indice) => {
+    if (indice > 9) {
+      return false;
+    }
+    console.log(ator, indice);
+    elenco.appendChild(montaColuna(ator, "pessoa"));
+    return true;
+  });
 }
 
 function atualizaEmCartaz() {
@@ -314,7 +279,7 @@ function atualizaEmCartaz() {
       let tagPai = document.getElementById("nosCinemas");
 
       filmes.forEach((filme) => {
-        tagPai.appendChild(montaColuna(filme, "Cartaz"));
+        tagPai.appendChild(montaColuna(filme, "filme"));
       });
     });
 }
