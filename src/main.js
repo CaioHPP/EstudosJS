@@ -92,7 +92,10 @@ function montaColuna(filme, tipo) {
 function atualizaBusca(resultados) {
   let tagPai = document.getElementById("resultadoBusca");
 
+  console.log("peguei a tag pra atualizar");
+  console.log(tagPai);
   resultados.forEach((filme) => {
+    console.log(filme);
     tagPai.appendChild(montaColuna(filme, "pesquisa"));
   });
 }
@@ -137,7 +140,7 @@ function atualizaGenero() {
         genero.innerHTML = getGenero(
           parseInt(genero.innerHTML),
           generos.genres
-        ).name;
+        );
       });
     });
 }
@@ -182,36 +185,41 @@ window.onload = function () {
 
   function carregaPesquisa(query) {
     let pesquisa = document.getElementById("conteudoIndex");
-    fetch("./pesquisa.html")
-      .then((resp) => resp.text())
-      .then((html) => (pesquisa.innerHTML = html))
-      .then(
-        buscaFilme(query)
-          .then(({ data }) => {
-            return data.results;
-          })
-          .then(atualizaBusca)
-          .then(atualizaGenero)
-      );
+    pesquisa.innerHTML = `<div class="conteudoPesquisa">
+    <section class="resultadosBusca">
+      <div class="containerResultados">
+        <div class="midia">
+          <div id="resultadoBusca" class="colunas resultado"></div>
+        </div>
+      </div>
+    </section>
+  </div>`;
+    buscaFilme(query)
+      .then(({ data }) => {
+        console.log("puxei os dados");
+        return data.results;
+      })
+      .then(atualizaBusca)
+      .then(atualizaGenero);
   }
 
   const abaIndex = document.querySelector("[classe-home]");
   abaIndex.onclick = function (e) {
     e.preventDefault();
+    ultimaBusca = "";
     carregaIndex();
   };
 
   const abaPesquisa = document.querySelector("[classe-pesquisa]");
   let ultimaBusca = "";
+  let query = "";
   abaPesquisa.onclick = function (e) {
     e.preventDefault();
-    let query = abaPesquisa.form.query.value;
+    query = abaPesquisa.form.query.value;
     if (query && ultimaBusca !== query) {
       ultimaBusca = query;
+      console.log(query);
       carregaPesquisa(query);
     }
   };
-
-  atualizaEmCartaz();
-  atualizaGenero();
 };

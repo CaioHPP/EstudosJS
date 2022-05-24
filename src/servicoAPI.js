@@ -11,7 +11,7 @@ export const generosExistentes = () => {
 };
 
 export const getGenero = (id, generos) =>
-  generos.find((genero) => genero.id === id);
+  generos.find((genero) => genero.id === id).name;
 
 export function buscaFilme(texto) {
   const url = `${urlAPI}search/movie${keyAPI}&language=${lingua}&region=${regiao}&query=${texto}`;
