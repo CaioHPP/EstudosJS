@@ -13,17 +13,25 @@ export const generosExistentes = () => {
 export const getGenero = (id, generos) =>
   generos.find((genero) => genero.id === id).name;
 
-export function buscaFilme(texto) {
-  const url = `${urlAPI}search/movie${keyAPI}&language=${lingua}&region=${regiao}&query=${texto}`;
+export function buscaFilme(texto, pagina) {
+  let url = `${urlAPI}search/movie${keyAPI}&language=${lingua}&region=${regiao}&query=${texto}`;
+  if (pagina) {
+    url += `&page=${pagina}`;
+    console.log(url);
+  }
   let encodedurl = encodeURI(url);
 
   const response = axios.get(encodedurl);
   return response;
 }
 
-export function emCartaz() {
-  const url = `${urlAPI}movie/now_playing${keyAPI}&language=${lingua}&region=${regiao}`;
-  const response = axios.get(url);
+export function emCartaz(pagina) {
+  let url = `${urlAPI}movie/now_playing${keyAPI}&language=${lingua}&region=${regiao}`;
+  if (pagina) {
+    url += `&page=${pagina}`;
+  }
+  let encodedurl = encodeURI(url);
+  const response = axios.get(encodedurl);
   return response;
 }
 

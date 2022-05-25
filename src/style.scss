@@ -352,6 +352,9 @@ section {
   background: transparent;
   overflow-x: scroll;
   overflow-y: hidden;
+  .botaoAvancar {
+    margin-right: 40px;
+  }
   .pessoa {
     margin-bottom: 30px;
     display: block;
@@ -381,7 +384,40 @@ section {
   border-radius: 8px;
   padding: 5px;
   border: #555 solid 1px;
-  height: 300;
+
+  .avancarEVoltar {
+    width: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    a {
+      display: flex;
+      align-items: center;
+      align-self: center;
+      span {
+        font-size: 150px;
+        align-self: center;
+      }
+    }
+  }
+
+  .avancarBusca {
+    width: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    a {
+      display: flex;
+      align-items: center;
+      align-self: center;
+      span {
+        font-size: 150px;
+        align-self: center;
+        cursor: pointer;
+      }
+    }
+  }
   .imagem {
     min-height: calc(150px * 1.5);
     border-radius: 8px;

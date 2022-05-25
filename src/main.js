@@ -53,16 +53,6 @@ function montaDetalhes() {
         </div>
         <div class="midia">
           <div class="colunas" id="pessoas">
-            <div class="coluna pessoa">
-              <div class="imagem">
-                <img src="https://picsum.photos/200/300" alt="" />
-              </div>
-              <div class="informacoes">
-                <h4 class="nome">Nome da pessoa</h4>
-                <h5 class="papel">Papel da pessoa</h5>
-              </div>
-            </div>
-
           </div>
         </div>
       </div>
@@ -77,7 +67,7 @@ function montaResultado() {
     <section class="resultadosBusca">
       <div class="containerResultados">
         <div class="midia">
-          <div id="resultadoBusca" class="colunas resultado"></div>
+          <div id="resultadosBusca" class="colunas resultado"></div>
         </div>
       </div>
     </section>
@@ -120,6 +110,39 @@ function montaColuna(filme, tipo) {
     h5.append(filme.character);
     divInformacoes.appendChild(h4);
     divInformacoes.appendChild(h5);
+    divInformacoes.style.width = "auto";
+  } else if (tipo.includes("botao")) {
+    divImagem.classList.remove("imagem");
+    aImagem.classList.remove("imagem");
+    aImagem.removeChild(img);
+    divImagem.remove(aImagem);
+    const span = document.createElement("span");
+    span.classList.add("material-symbols-outlined");
+
+    if (tipo === "botaoVoltar") {
+      span.append("arrow_back");
+      divImagem.style.width = "150px";
+      divImagem.setAttribute("onclick", `proxPagina(${filme})`);
+      divImagem.classList.add("avancarEVoltar");
+    } else if (tipo === "botaoAvancar") {
+      span.append("arrow_forward");
+      divImagem.style.width = "150px";
+      divImagem.setAttribute("onclick", `proxPagina(${filme})`);
+      divImagem.classList.add("avancarEVoltar");
+    } else if (tipo === "botaoMais") {
+      span.append("add_circle");
+      aImagem.setAttribute("onclick", `proxPagina(${filme})`);
+      divImagem.classList.add("avancarBusca");
+      divColuna.style.border = 0;
+    }
+    aImagem.appendChild(span);
+
+    divImagem.appendChild(aImagem);
+    divColuna.classList.add("filme");
+    divColuna.classList.add("pesquisa");
+    divColuna.append(divImagem);
+
+    return divColuna;
   } else {
     if (tipo === "pesquisa") {
       divColuna.classList.add("filme");
@@ -170,18 +193,14 @@ function montaColuna(filme, tipo) {
 }
 
 function atualizaBusca(resultados) {
-  let tagPai = document.getElementById("resultadoBusca");
+  let tagPai = document.getElementById("resultadosBusca");
 
-  console.log("peguei a tag pra atualizar");
-  console.log(tagPai);
   resultados.forEach((filme) => {
-    console.log(filme);
     tagPai.appendChild(montaColuna(filme, "pesquisa"));
   });
 }
 
 function atualizaDetalhesFilme(filme) {
-  console.log(filme);
   let caminho = "";
   if (filme.poster_path) {
     caminho = `https://image.tmdb.org/t/p/w500/${filme.poster_path}`;
@@ -205,7 +224,7 @@ function atualizaDetalhesFilme(filme) {
   nomeFilme.append(filme.title);
   let anoFilme = document.getElementById("anoFilme");
   let data = new Date(filme.release_date);
-  anoFilme.append(data.getFullYear());
+  anoFilme.append(`(${data.getFullYear()})`);
   let classificacao = document.getElementById("classificacao");
   classificacao.append(
     filme.releases.countries.find(
@@ -264,23 +283,33 @@ function atualizaDetalhesFilme(filme) {
     if (indice > 9) {
       return false;
     }
-    console.log(ator, indice);
     elenco.appendChild(montaColuna(ator, "pessoa"));
     return true;
   });
 }
 
-function atualizaEmCartaz() {
-  const filmesEmCartaz = emCartaz()
+function atualizaEmCartaz(pagina = 1) {
+  let total = 1;
+  let tagPai = document.getElementById("nosCinemas");
+  tagPai.innerHTML = "";
+  if (pagina > 1) {
+    tagPai.appendChild(montaColuna(pagina - 1, "botaoVoltar"));
+  }
+  emCartaz(pagina)
     .then(({ data }) => {
+      pagina = data.page;
+      total = data.total_pages;
       return data.results;
     })
     .then((filmes) => {
-      let tagPai = document.getElementById("nosCinemas");
-
       filmes.forEach((filme) => {
         tagPai.appendChild(montaColuna(filme, "filme"));
       });
+    })
+    .then(() => {
+      if (pagina < total) {
+        tagPai.appendChild(montaColuna(pagina + 1, "botaoAvancar"));
+      }
     });
 }
 function atualizaGenero() {
@@ -320,27 +349,47 @@ window.onload = function () {
       .then(atualizaDetalhesFilme);
   };
 
+  window.proxPagina = function (pagina) {
+    if (query) {
+      carregaPesquisa(query, pagina);
+    } else {
+      atualizaEmCartaz(pagina);
+      atualizaGenero();
+    }
+  };
+
   function carregaIndex() {
     try {
+      query = "";
       let conteudo = document.getElementById("conteudoIndex");
       fetch("./conteudoIndex.html")
         .then((resp) => resp.text())
         .then((html) => (conteudo.innerHTML = html))
-        .then(atualizaEmCartaz)
-        .then(atualizaGenero);
+        .then(atualizaEmCartaz());
+      //.then(atualizaGenero);
     } catch {
       document.location.reload(true);
     }
   }
 
-  function carregaPesquisa(query) {
+  function carregaPesquisa(query, pagina = 0) {
     let pesquisa = document.getElementById("conteudoIndex");
     pesquisa.innerHTML = montaResultado();
-    buscaFilme(query)
+    let total = 0;
+    buscaFilme(query, pagina)
       .then(({ data }) => {
+        pagina = data.page;
+        total = data.total_pages;
         return data.results;
       })
       .then(atualizaBusca)
+      .then(() => {
+        if (pagina < total) {
+          document
+            .getElementById("resultadosBusca")
+            .appendChild(montaColuna(pagina + 1, "botaoMais"));
+        }
+      })
       .then(atualizaGenero);
   }
 
@@ -359,8 +408,9 @@ window.onload = function () {
     query = abaPesquisa.form.query.value;
     if (query && ultimaBusca !== query) {
       ultimaBusca = query;
-      console.log(query);
       carregaPesquisa(query);
     }
   };
+  atualizaEmCartaz();
+  atualizaGenero();
 };
