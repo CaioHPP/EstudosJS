@@ -200,6 +200,7 @@ window.onload = function () {
 
   function montaLinhas(filme, tipo, indice) {
     const tr = document.createElement("tr");
+    tr.setAttribute("ordenacao", "");
     if (tipo === "botao") {
       const divBotao = document.createElement("div");
       const botao = document.createElement("span");
@@ -288,6 +289,34 @@ window.onload = function () {
     tr.appendChild(tdNVotos);
     tr.appendChild(tdAnoLancamento);
     return tr;
+  }
+
+  function ordenaPor() {
+    let filmes = [];
+    let ordem = document.getElementById("ordemPorVoto").value;
+
+    document.querySelectorAll("[ordenacao]").forEach((tr) => {
+      filmes.push(tr);
+    });
+    if (ordem === "votosMaior") {
+      filmes.sort(
+        (a, b) =>
+          Number(b.children[3].innerHTML) - Number(a.children[3].innerHTML)
+      );
+    } else if (ordem === "votosMenor") {
+      filmes.sort(
+        (a, b) =>
+          Number(a.children[3].innerHTML) - Number(b.children[3].innerHTML)
+      );
+    } else {
+      return 1;
+    }
+    let tagPai = document.getElementById("topRatedFilmes");
+    tagPai.innerHTML = "";
+    filmes.forEach((filme) => {
+      console.log(filme);
+      tagPai.appendChild(filme);
+    });
   }
 
   function atualizaBusca(resultados) {
@@ -383,6 +412,20 @@ window.onload = function () {
       }
       elenco.appendChild(montaColuna(ator, "pessoa"));
       return true;
+    });
+  }
+
+  function atualizaFiltro() {
+    let ul = document.getElementById("generos");
+    generos.then((genres) => {
+      genres.genres.forEach((genero) => {
+        const li = document.createElement("li");
+        const aLi = document.createElement("a");
+        aLi.setAttribute("name", "generoLi");
+        aLi.append(genero.name);
+        li.appendChild(aLi);
+        ul.appendChild(li);
+      });
     });
   }
 
@@ -486,6 +529,7 @@ window.onload = function () {
         pagina,
         document.getElementById("ordemApresentacao").value
       );
+      ordenaPor();
     }
   };
 
@@ -497,6 +541,7 @@ window.onload = function () {
         .then((resp) => resp.text())
         .then((html) => {
           conteudo.innerHTML = html;
+          atualizaFiltro();
           atualizaEmCartaz();
           atualizaTopRated();
         });
@@ -548,15 +593,30 @@ window.onload = function () {
   ordemApresentacao.onchange = function (e) {
     document.getElementById("topRatedFilmes").innerHTML = "";
     if (ordemApresentacao.value === "menorAvaliacao") {
-      console.log(totalTopRated);
       atualizaTopRated(totalTopRated, ordemApresentacao.value);
     } else {
       atualizaTopRated(1, ordemApresentacao.value);
     }
-
+    ordemPorVotos.options[0].selected = true;
     ordemApresentacao.focus();
+  };
+
+  const ordemPorVotos = document.getElementById("ordemPorVoto");
+  ordemPorVotos.onchange = function (e) {
+    if (ordemPorVotos.value) {
+      ordenaPor();
+    } else {
+      document.getElementById("topRatedFilmes").innerHTML = "";
+      if (ordemApresentacao.value === "menorAvaliacao") {
+        atualizaTopRated(totalTopRated, ordemApresentacao.value);
+      } else {
+        atualizaTopRated(1, ordemApresentacao.value);
+      }
+    }
+    ordemPorVotos.focus();
   };
 
   atualizaEmCartaz();
   atualizaTopRated();
+  atualizaFiltro();
 };

@@ -1,160 +1,157 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Meu Site</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Meu Site</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-</head>
-
-<body class="gradiente">
-  <header>
-    <div class="content">
-      <div class="sub">
-        <div class="esquerda">
-          <h1>Meu Nome Sobrenome</h1>
-        </div>
-        <div class="direita">
-          <div class="header">
-            <a class="active" href classe-home>Home</a>
-            <a href="#contact">Contact</a>
+  <body class="gradiente">
+    <header>
+      <div class="content">
+        <div class="sub">
+          <div class="esquerda">
+            <h1>Meu Nome Sobrenome</h1>
+          </div>
+          <div class="direita">
+            <div class="header">
+              <a class="active" href classe-home>Home</a>
+              <a href="#contact">Contact</a>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </header>
-  <div id="conteudoSite">
-    <section id="busca" class="inner-content nova-sessao">
-      <div class="conteudo">
-        <div class="conteudo-wrap">
-          <div class="textoBemVindo">
-            <h2>Bem Vindo!</h2>
-            <h3>Este e um site feito para um estudo de Web.</h3>
-          </div>
-          <div class="caixaDePesquisa">
-            <form action="Pesquisa.html">
-              <label for="">
-                <input id="queryBusca" name="query" type="text" placeholder="Busque por um filme..." />
-              </label>
-              <input type="submit" value="Search" classe-pesquisa />
-            </form>
-          </div>
-        </div>
-      </div>
-    </section>
-    <div id="conteudoIndex">
-      <section class="inner-content nova-sessao">
-        <div class="conteudo-filmes">
-          <div class="header-section">
-            <h2>Nos Cinemas</h2>
-          </div>
-          <div class="midia">
-            <div id="nosCinemas" class="colunas"></div>
+    </header>
+    <div id="conteudoSite">
+      <section id="busca" class="inner-content nova-sessao">
+        <div class="conteudo">
+          <div class="conteudo-wrap">
+            <div class="textoBemVindo">
+              <h2>Bem Vindo!</h2>
+              <h3>Este e um site feito para um estudo de Web.</h3>
+            </div>
+            <div class="caixaDePesquisa">
+              <form action="Pesquisa.html">
+                <label for="">
+                  <input
+                    id="queryBusca"
+                    name="query"
+                    type="text"
+                    placeholder="Busque por um filme..."
+                  />
+                </label>
+                <input type="submit" value="Search" classe-pesquisa />
+              </form>
+            </div>
           </div>
         </div>
       </section>
-      <section id="topRated" class="inner-content nova-sessao">
-        <div class="conteudo-filmes">
-          <div class="header-section">
-            <h2>Mais bem avaliados</h2>
-          </div>
-        </div>
-        <div class="opcoes">
-          <div class="ordenar" id="ordenar">
-            <a onclick="abrirAba('ordenar')">
-              <div class="texto">
-                <h2>Ordenar</h2>
-                <span class="material-symbols-outlined" id="icone">
-                  chevron_right
-                </span>
-              </div>
-            </a>
-
-            <div class="selecao closed" id="aba">
-              <h3>Ordenar por:</h3>
-              <div class="ordenacaoInline">
-                <select name="" id="ordemApresentacao">
-                  <option value="melhorAvaliacao">Melhor Avaliacao</option>
-                  <option value="menorAvaliacao">Pior Avaliacao</option>
-                </select>
-                <select name="" id="ordemPorVoto">
-                  <option value="">--Selecione--</option>
-                  <option value="votosMaior">Mais Votado</option>
-                  <option value="votosMenor">Menos Votado</option>
-                </select>
-              </div>
+      <div id="conteudoIndex">
+        <section class="inner-content nova-sessao">
+          <div class="conteudo-filmes">
+            <div class="header-section">
+              <h2>Nos Cinemas</h2>
+            </div>
+            <div class="midia">
+              <div id="nosCinemas" class="colunas"></div>
             </div>
           </div>
+        </section>
+        <section id="topRated" class="inner-content nova-sessao">
+          <div class="conteudo-filmes">
+            <div class="header-section">
+              <h2>Mais bem avaliados</h2>
+            </div>
+          </div>
+          <div class="opcoes">
+            <div class="ordenar" id="ordenar">
+              <a onclick="abrirAba('ordenar')">
+                <div class="texto">
+                  <h2>Ordenar</h2>
+                  <span class="material-symbols-outlined" id="icone">
+                    chevron_right
+                  </span>
+                </div>
+              </a>
 
-          <div class="filtrar" id="filtrar">
-            <a onclick="abrirAba('filtrar')">
-              <div class="texto">
-                <h2>Filtrar</h2>
-                <span class="material-symbols-outlined" id="icone">chevron_right</span>
+              <div class="selecao closed" id="aba">
+                <h3>Ordenar por:</h3>
+                <div class="ordenacaoInline">
+                  <select name="" id="ordemApresentacao">
+                    <option value="melhorAvaliacao">Melhor Avaliação</option>
+                    <option value="menorAvaliacao">Pior Avaliação</option>
+                  </select>
+                  <select name="" id="ordemPorVoto">
+                    <option value="">--Selecione--</option>
+                    <option value="votosMaior">Mais Votado</option>
+                    <option value="votosMenor">Menos Votado</option>
+                  </select>
+                </div>
               </div>
-            </a>
-            <div class="filtros closed" id="aba">
-              <h3>Filtrar por:</h3>
-              <div>
-                <div class="opcoes-filtro">
-                  <div class="data">
-                    <h3>Data de Lancamento:</h3>
-                    <div class="entrada-data">
-                      <h4>De:</h4>
-                      <input type="date" name="datamin" id="datamin" />
-                      <h4>Ate:</h4>
-                      <input type="date" name="datamax" id="datamax" />
-                    </div>
-                  </div>
+            </div>
 
-                  <div class="genero">
-                    <h3>Genero:</h3>
-                    <ul class="generos">
-                      <li>
-                        <a class="no-click">Acao</a>
-                      </li>
-                      <li>
-                        <a class="">Comedia</a>
-                      </li>
-                      <li>
-                        <a class="">Tragedia</a>
-                      </li>
-                    </ul>
+            <div class="filtrar" id="filtrar">
+              <a onclick="abrirAba('filtrar')">
+                <div class="texto">
+                  <h2>Filtrar</h2>
+                  <span class="material-symbols-outlined" id="icone"
+                    >chevron_right</span
+                  >
+                </div>
+              </a>
+              <div class="filtros closed" id="aba">
+                <h3>Filtrar por:</h3>
+                <div>
+                  <div class="opcoes-filtro">
+                    <div class="data">
+                      <h3>Data de Lançamento:</h3>
+                      <div class="entrada-data">
+                        <h4>De:</h4>
+                        <input type="date" name="datamin" id="datamin" />
+                        <h4>Até:</h4>
+                        <input type="date" name="datamax" id="datamax" />
+                      </div>
+                    </div>
+                    <div class="genero">
+                      <h3>Gênero:</h3>
+                      <ul class="generos" id="generos"></ul>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="topRatedList">
-          <table>
-            <thead>
-              <tr>
-                <th class="rank">Rank</th>
-                <th class="nomeFilme">Nome</th>
-                <th class="notaAvaliacao">Avaliacao dos Usuarios</th>
-                <th class="votos">N.º de Votos</th>
-                <th class="anoLancamento">Ano de Lancamento</th>
-              </tr>
-            </thead>
-            <tbody id="topRatedFilmes">
-            </tbody>
-            <div id="expandeLista">
-            </div>
-          </table>
-        </div>
-      </section>
+          <div class="topRatedList">
+            <table>
+              <thead>
+                <tr>
+                  <th class="rank">Rank</th>
+                  <th class="nomeFilme">Nome</th>
+                  <th class="notaAvaliacao">Avaliação dos Usuários</th>
+                  <th class="votos">N.º de Votos</th>
+                  <th class="anoLancamento">Ano de Lançamento</th>
+                </tr>
+              </thead>
+              <tbody id="topRatedFilmes"></tbody>
+              <div id="expandeLista"></div>
+            </table>
+          </div>
+        </section>
+      </div>
     </div>
-  </div>
-  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  <script type="module" src="main.js"></script>
-</body>
-
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script type="module" src="main.js"></script>
+  </body>
 </html>
