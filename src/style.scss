@@ -496,13 +496,25 @@ section {
 }
 
 table {
+  display: table-row;
   width: 100%;
   border-collapse: collapse;
   font-size: 13px;
+
+  div.botaoMais {
+    display: grid;
+    justify-items: center;
+    cursor: pointer;
+    border-top: 1px solid $primario_3;
+    span {
+      font-size: 60px;
+    }
+  }
 }
+
 .topRatedList {
   margin-top: 35px;
-  width: 100%;
+  width: 80%;
   padding: 0px 40px;
 }
 
@@ -645,6 +657,9 @@ table {
   width: 300px;
   a {
     cursor: pointer;
+  }
+  div.ordenacaoInline {
+    display: grid;
   }
 }
 

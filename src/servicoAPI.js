@@ -17,7 +17,6 @@ export function buscaFilme(texto, pagina) {
   let url = `${urlAPI}search/movie${keyAPI}&language=${lingua}&region=${regiao}&query=${texto}`;
   if (pagina) {
     url += `&page=${pagina}`;
-    console.log(url);
   }
   let encodedurl = encodeURI(url);
 
@@ -42,10 +41,14 @@ export function detalhesFilme(idFilme) {
   return response;
 }
 
-function filmesTopzeira() {
-  const url = `${urlAPI}movie/top_rated${keyAPI}&language=${lingua}&region=${regiao}`;
+export function filmesTopzeira(pagina) {
+  let url = `${urlAPI}movie/top_rated${keyAPI}&language=${lingua}`;
+  if (pagina) {
+    url += `&page=${pagina}`;
+  }
   let encodedurl = encodeURI(url);
   console.log(encodedurl);
+
   const response = axios.get(encodedurl);
   return response;
 }

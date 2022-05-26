@@ -8,8 +8,11 @@ import { generosExistentes } from "./servicoAPI.js";
 
 import { getGenero } from "./servicoAPI.js";
 
-function montaDetalhes() {
-  return `<div id="conteudoIndex">
+import { filmesTopzeira } from "./servicoAPI.js";
+
+window.onload = function () {
+  function montaDetalhes() {
+    return `<div id="conteudoIndex">
   <div class="conteudoDetalhes">
     <section class="inner-content nova-sessao" id="sessao">
       <div class="detalhes-filme" id="grad">
@@ -57,13 +60,13 @@ function montaDetalhes() {
         </div>
       </div>
     </section>
-  </div>
-</div>
+    </div>
+    </div>
 `;
-}
+  }
 
-function montaResultado() {
-  return `<div class="conteudoPesquisa">
+  function montaResultado() {
+    return `<div class="conteudoPesquisa">
     <section class="resultadosBusca">
       <div class="containerResultados">
         <div class="midia">
@@ -72,262 +75,382 @@ function montaResultado() {
       </div>
     </section>
   </div>`;
-}
-
-function montaColuna(filme, tipo) {
-  const divColuna = document.createElement("div");
-  const divImagem = document.createElement("div");
-  const aImagem = document.createElement("a");
-  const img = document.createElement("img");
-  const divInformacoes = document.createElement("div");
-  const aNome = document.createElement("a");
-
-  divColuna.classList.add(tipo);
-  divColuna.classList.add("coluna");
-  divImagem.classList.add("imagem");
-  aImagem.classList.add("imagem");
-  divInformacoes.classList.add("informacoes");
-
-  let caminho = "";
-  if (filme.poster_path || filme.profile_path) {
-    caminho = `https://image.tmdb.org/t/p/w500/${
-      filme.poster_path || filme.profile_path
-    }`;
-  } else {
-    caminho =
-      "https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg";
   }
 
-  img.setAttribute("src", caminho);
-  aImagem.appendChild(img);
-  divImagem.appendChild(aImagem);
-  aNome.append(filme.title || filme.name);
+  function montaColuna(filme, tipo) {
+    const divColuna = document.createElement("div");
+    const divImagem = document.createElement("div");
+    const aImagem = document.createElement("a");
+    const img = document.createElement("img");
+    const divInformacoes = document.createElement("div");
+    const aNome = document.createElement("a");
 
-  if (tipo === "pessoa") {
-    const h4 = document.createElement("h4");
-    const h5 = document.createElement("h5");
-    h4.appendChild(aNome);
-    h5.append(filme.character);
-    divInformacoes.appendChild(h4);
-    divInformacoes.appendChild(h5);
-    divInformacoes.style.width = "auto";
-  } else if (tipo.includes("botao")) {
-    divImagem.classList.remove("imagem");
-    aImagem.classList.remove("imagem");
-    aImagem.removeChild(img);
-    divImagem.remove(aImagem);
-    const span = document.createElement("span");
-    span.classList.add("material-symbols-outlined");
+    divColuna.classList.add(tipo);
+    divColuna.classList.add("coluna");
+    divImagem.classList.add("imagem");
+    aImagem.classList.add("imagem");
+    divInformacoes.classList.add("informacoes");
 
-    if (tipo === "botaoVoltar") {
-      span.append("arrow_back");
-      divImagem.style.width = "150px";
-      divImagem.setAttribute("onclick", `proxPagina(${filme})`);
-      divImagem.classList.add("avancarEVoltar");
-    } else if (tipo === "botaoAvancar") {
-      span.append("arrow_forward");
-      divImagem.style.width = "150px";
-      divImagem.setAttribute("onclick", `proxPagina(${filme})`);
-      divImagem.classList.add("avancarEVoltar");
-    } else if (tipo === "botaoMais") {
-      span.append("add_circle");
-      aImagem.setAttribute("onclick", `proxPagina(${filme})`);
-      divImagem.classList.add("avancarBusca");
-      divColuna.style.border = 0;
+    let caminho = "";
+    if (filme.poster_path || filme.profile_path) {
+      caminho = `https://image.tmdb.org/t/p/w500/${
+        filme.poster_path || filme.profile_path
+      }`;
+    } else {
+      caminho =
+        "https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg";
     }
-    aImagem.appendChild(span);
 
+    img.setAttribute("src", caminho);
+    aImagem.appendChild(img);
     divImagem.appendChild(aImagem);
-    divColuna.classList.add("filme");
-    divColuna.classList.add("pesquisa");
-    divColuna.append(divImagem);
+    aNome.append(filme.title || filme.name);
+
+    if (tipo === "pessoa") {
+      const h4 = document.createElement("h4");
+      const h5 = document.createElement("h5");
+      h4.appendChild(aNome);
+      h5.append(filme.character);
+      divInformacoes.appendChild(h4);
+      divInformacoes.appendChild(h5);
+      divInformacoes.style.width = "auto";
+    } else if (tipo.includes("botao")) {
+      divImagem.classList.remove("imagem");
+      aImagem.classList.remove("imagem");
+      aImagem.removeChild(img);
+      divImagem.remove(aImagem);
+      const span = document.createElement("span");
+      span.classList.add("material-symbols-outlined");
+
+      if (tipo === "botaoVoltar") {
+        span.append("arrow_back");
+        divImagem.style.width = "150px";
+        divImagem.setAttribute("onclick", `proxPagina(${filme})`);
+        divImagem.classList.add("avancarEVoltar");
+      } else if (tipo === "botaoAvancar") {
+        span.append("arrow_forward");
+        divImagem.style.width = "150px";
+        divImagem.setAttribute("onclick", `proxPagina(${filme})`);
+        divImagem.classList.add("avancarEVoltar");
+      } else if (tipo === "botaoMais") {
+        span.append("add_circle");
+        aImagem.setAttribute("onclick", `proxPagina(${filme})`);
+        divImagem.classList.add("avancarBusca");
+        divColuna.style.border = 0;
+      }
+      aImagem.appendChild(span);
+
+      divImagem.appendChild(aImagem);
+      divColuna.classList.add("filme");
+      divColuna.classList.add("pesquisa");
+      divColuna.append(divImagem);
+
+      return divColuna;
+    } else {
+      if (tipo === "pesquisa") {
+        divColuna.classList.add("filme");
+      }
+      const h2 = document.createElement("h2");
+      const divGenero = document.createElement("div");
+      const ul = document.createElement("ul");
+      const dataLancamento = document.createElement("p");
+      const divDescricao = document.createElement("div");
+
+      divGenero.classList.add("genero");
+      ul.classList.add("generos");
+      divDescricao.classList.add("overview");
+
+      h2.appendChild(aNome);
+      divInformacoes.appendChild(h2);
+      divGenero.appendChild(ul);
+      dataLancamento.append(filme.release_date || "");
+
+      ul.setAttribute("id", filme.id);
+      aNome.setAttribute("onclick", `abrirFilme(${filme.id})`);
+      aImagem.setAttribute("onclick", `abrirFilme(${filme.id})`);
+
+      filme.genre_ids.forEach((genero_id) => {
+        const li = document.createElement("li");
+        const aLi = document.createElement("a");
+        aLi.setAttribute("name", "generoLi");
+        generos.then((genres) => {
+          aLi.append(getGenero(genero_id, genres.genres));
+        });
+
+        li.appendChild(aLi);
+        ul.appendChild(li);
+      });
+      if (filme.overview) {
+        const descricaoH3 = document.createElement("h3");
+        descricaoH3.append(`Descricao: `);
+        divDescricao.appendChild(descricaoH3);
+        divDescricao.append("\n");
+        divDescricao.append(filme.overview || "Descricao Nao Adicionada");
+      }
+
+      divInformacoes.appendChild(divGenero);
+      divInformacoes.appendChild(dataLancamento);
+      divInformacoes.appendChild(divDescricao);
+    }
+    divColuna.appendChild(divImagem);
+    divColuna.appendChild(divInformacoes);
 
     return divColuna;
-  } else {
-    if (tipo === "pesquisa") {
-      divColuna.classList.add("filme");
+  }
+
+  function montaLinhas(filme, tipo, indice) {
+    const tr = document.createElement("tr");
+    if (tipo === "botao") {
+      const divBotao = document.createElement("div");
+      const botao = document.createElement("span");
+      botao.append("expand_more");
+      botao.classList.add("material-symbols-outlined");
+      divBotao.appendChild(botao);
+      divBotao.classList.add("botaoMais");
+      divBotao.setAttribute("onclick", `expandirTopRated(${indice})`);
+      divBotao.setAttribute("id", "expandeLista");
+      return divBotao;
     }
+    const tdRank = document.createElement("td");
+    const tdNome = document.createElement("td");
+    const tdNota = document.createElement("td");
+    const tdNVotos = document.createElement("td");
+    const tdAnoLancamento = document.createElement("td");
+    const aNome = document.createElement("a");
+    const spanToolTip = document.createElement("span");
+    const divImg = document.createElement("div");
+    const imagem = document.createElement("img");
+    const divOver = document.createElement("div");
+    const ul = document.createElement("ul");
     const h2 = document.createElement("h2");
     const divGenero = document.createElement("div");
-    const ul = document.createElement("ul");
-    const dataLancamento = document.createElement("p");
-    const divDescricao = document.createElement("div");
+    const over = document.createElement("p");
 
+    aNome.classList.add("celulaNome");
+    aNome.classList.add("tooltip");
+    spanToolTip.classList.add("tooltipContent");
+    divImg.classList.add("tooltipImagem");
+    divOver.classList.add("tooltipTexto");
     divGenero.classList.add("genero");
     ul.classList.add("generos");
-    divDescricao.classList.add("overview");
 
-    h2.appendChild(aNome);
-    divInformacoes.appendChild(h2);
-    divGenero.appendChild(ul);
-    dataLancamento.append(filme.release_date || "");
-
-    ul.setAttribute("id", filme.id);
     aNome.setAttribute("onclick", `abrirFilme(${filme.id})`);
-    aImagem.setAttribute("onclick", `abrirFilme(${filme.id})`);
+    aNome.setAttribute("href", "");
 
-    filme.genre_ids.forEach((genero) => {
+    let caminho = "";
+    if (filme.poster_path) {
+      caminho = `https://image.tmdb.org/t/p/w500/${filme.poster_path}`;
+    } else {
+      caminho =
+        "https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg";
+    }
+
+    imagem.setAttribute("src", caminho);
+
+    aNome.append(filme.title);
+    h2.append(filme.title);
+    if (filme.overview) over.append(filme.overview);
+
+    filme.genre_ids.forEach((genero_id) => {
       const li = document.createElement("li");
       const aLi = document.createElement("a");
       aLi.setAttribute("name", "generoLi");
-      aLi.append(genero);
+      generos.then((genres) => {
+        aLi.append(getGenero(genero_id, genres.genres));
+      });
       li.appendChild(aLi);
       ul.appendChild(li);
     });
-    if (filme.overview) {
-      const descricaoH3 = document.createElement("h3");
-      descricaoH3.append(`Descricao: `);
-      divDescricao.appendChild(descricaoH3);
-      divDescricao.append("\n");
-      divDescricao.append(filme.overview || "Descricao Nao Adicionada");
-    }
 
-    divInformacoes.appendChild(divGenero);
-    divInformacoes.appendChild(dataLancamento);
-    divInformacoes.appendChild(divDescricao);
+    tdRank.classList.add("celulaOrdem");
+    tdNota.classList.add("celulaNota");
+    tdNVotos.classList.add("celulaVotos");
+    tdAnoLancamento.classList.add("celulaAno");
+
+    divImg.appendChild(imagem);
+    divGenero.appendChild(ul);
+    divOver.appendChild(h2);
+    divOver.appendChild(divGenero);
+    divOver.append(over);
+    spanToolTip.appendChild(divImg);
+    spanToolTip.appendChild(divOver);
+    aNome.appendChild(spanToolTip);
+
+    tdRank.append(indice);
+    tdNome.append(aNome);
+    tdNota.append(filme.vote_average);
+    tdNVotos.append(filme.vote_count);
+    tdAnoLancamento.append(new Date(filme.release_date).getFullYear());
+
+    tr.appendChild(tdRank);
+    tr.appendChild(tdNome);
+    tr.appendChild(tdNota);
+    tr.appendChild(tdNVotos);
+    tr.appendChild(tdAnoLancamento);
+    return tr;
   }
-  divColuna.appendChild(divImagem);
-  divColuna.appendChild(divInformacoes);
 
-  return divColuna;
-}
+  function atualizaBusca(resultados) {
+    let tagPai = document.getElementById("resultadosBusca");
 
-function atualizaBusca(resultados) {
-  let tagPai = document.getElementById("resultadosBusca");
-
-  resultados.forEach((filme) => {
-    tagPai.appendChild(montaColuna(filme, "pesquisa"));
-  });
-}
-
-function atualizaDetalhesFilme(filme) {
-  let caminho = "";
-  if (filme.poster_path) {
-    caminho = `https://image.tmdb.org/t/p/w500/${filme.poster_path}`;
-  } else {
-    caminho =
-      "https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg";
-  }
-  let caminho2 = "";
-  if (filme.backdrop_path) {
-    caminho2 = `https://image.tmdb.org/t/p/original/${filme.backdrop_path}`;
-  }
-  let back = document.getElementById("sessao");
-  back.style.backgroundImage = `url(${caminho2})`;
-  back.style.display = "block";
-  let grad = document.getElementById("grad");
-  grad.style.backgroundImage =
-    "linear-gradient(to right, rgb(26, 26, 26) 150px, rgba(60, 61, 62, 0.84) 100%)";
-  let poster = document.getElementById("posterFilme");
-  poster.setAttribute("src", caminho);
-  let nomeFilme = document.getElementById("nomeFilme");
-  nomeFilme.append(filme.title);
-  let anoFilme = document.getElementById("anoFilme");
-  let data = new Date(filme.release_date);
-  anoFilme.append(`(${data.getFullYear()})`);
-  let classificacao = document.getElementById("classificacao");
-  classificacao.append(
-    filme.releases.countries.find(
-      (certificacao) => certificacao.iso_3166_1 === "BR"
-    ).certification
-  );
-  let dataFilme = document.getElementById("dataFilme");
-  dataFilme.append(data.toLocaleDateString("pt-BR"));
-
-  let ol = document.getElementById("generos");
-  filme.genres.forEach((genero) => {
-    const li = document.createElement("li");
-    li.setAttribute("name", "generoLi");
-    li.append(genero.name);
-    ol.appendChild(li);
-  });
-  let duracao = document.getElementById("duracao");
-  duracao.append(`${Math.floor(filme.runtime / 60)}h${filme.runtime % 60}m`);
-  let overview = document.getElementById("overview");
-  overview.append(filme.overview);
-
-  let criacao = document.getElementById("criacao");
-  let criadores = filme.credits.crew.filter((pessoa) => {
-    return (
-      pessoa.job === "Director" ||
-      pessoa.job === "Screenplay" ||
-      pessoa.job === "Writer" ||
-      pessoa.job === "Characters"
-    );
-  });
-  criadores.sort(function (a, b) {
-    return b.popularity - a.popularity;
-  });
-  criadores.forEach((criador) => {
-    const novoCriador = document.createElement("li");
-    const h4 = document.createElement("h4");
-    const h5 = document.createElement("h5");
-    novoCriador.classList.add("perfil");
-    h4.classList.add("nome");
-    h5.classList.add("papel");
-    h4.append(criador.name);
-    h5.append(criador.job);
-    novoCriador.append(h4);
-    novoCriador.append(h5);
-    criacao.appendChild(novoCriador);
-  });
-
-  const elenco = document.getElementById("pessoas");
-  let atores = filme.credits.cast.filter((pessoa) => {
-    return pessoa.known_for_department === "Acting";
-  });
-  atores.sort(function (a, b) {
-    return b.popularity - a.popularity;
-  });
-  atores.every((ator, indice) => {
-    if (indice > 9) {
-      return false;
-    }
-    elenco.appendChild(montaColuna(ator, "pessoa"));
-    return true;
-  });
-}
-
-function atualizaEmCartaz(pagina = 1) {
-  let total = 1;
-  let tagPai = document.getElementById("nosCinemas");
-  tagPai.innerHTML = "";
-  if (pagina > 1) {
-    tagPai.appendChild(montaColuna(pagina - 1, "botaoVoltar"));
-  }
-  emCartaz(pagina)
-    .then(({ data }) => {
-      pagina = data.page;
-      total = data.total_pages;
-      return data.results;
-    })
-    .then((filmes) => {
-      filmes.forEach((filme) => {
-        tagPai.appendChild(montaColuna(filme, "filme"));
-      });
-    })
-    .then(() => {
-      if (pagina < total) {
-        tagPai.appendChild(montaColuna(pagina + 1, "botaoAvancar"));
-      }
+    resultados.forEach((filme) => {
+      tagPai.appendChild(montaColuna(filme, "pesquisa"));
     });
-}
-function atualizaGenero() {
-  const generos = generosExistentes()
-    .then(({ data }) => {
-      return data;
-    })
-    .then((generos) => {
-      document.getElementsByName("generoLi").forEach((genero) => {
-        genero.innerHTML = getGenero(
-          parseInt(genero.innerHTML),
-          generos.genres
+  }
+
+  function atualizaDetalhesFilme(filme) {
+    let caminho = "";
+    if (filme.poster_path) {
+      caminho = `https://image.tmdb.org/t/p/w500/${filme.poster_path}`;
+    } else {
+      caminho =
+        "https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg";
+    }
+    let caminho2 = "";
+    if (filme.backdrop_path) {
+      caminho2 = `https://image.tmdb.org/t/p/original/${filme.backdrop_path}`;
+    }
+    let back = document.getElementById("sessao");
+    back.style.backgroundImage = `url(${caminho2})`;
+    back.style.display = "block";
+    let grad = document.getElementById("grad");
+    grad.style.backgroundImage =
+      "linear-gradient(to right, rgb(26, 26, 26) 150px, rgba(60, 61, 62, 0.84) 100%)";
+    let poster = document.getElementById("posterFilme");
+    poster.setAttribute("src", caminho);
+    let nomeFilme = document.getElementById("nomeFilme");
+    nomeFilme.append(filme.title);
+    let anoFilme = document.getElementById("anoFilme");
+    let data = new Date(filme.release_date);
+    anoFilme.append(`(${data.getFullYear()})`);
+    let classificacao = document.getElementById("classificacao");
+    classificacao.append(
+      filme.releases.countries.find(
+        (certificacao) => certificacao.iso_3166_1 === "BR"
+      ).certification
+    );
+    let dataFilme = document.getElementById("dataFilme");
+    dataFilme.append(data.toLocaleDateString("pt-BR"));
+
+    let ol = document.getElementById("generos");
+    filme.genres.forEach((genero) => {
+      const li = document.createElement("li");
+      li.setAttribute("name", "generoLi");
+      li.append(genero.name);
+      ol.appendChild(li);
+    });
+    let duracao = document.getElementById("duracao");
+    duracao.append(`${Math.floor(filme.runtime / 60)}h${filme.runtime % 60}m`);
+    let overview = document.getElementById("overview");
+    overview.append(filme.overview);
+
+    let criacao = document.getElementById("criacao");
+    let criadores = filme.credits.crew.filter((pessoa) => {
+      return (
+        pessoa.job === "Director" ||
+        pessoa.job === "Screenplay" ||
+        pessoa.job === "Writer" ||
+        pessoa.job === "Characters"
+      );
+    });
+    criadores.sort(function (a, b) {
+      return b.popularity - a.popularity;
+    });
+    criadores.forEach((criador) => {
+      const novoCriador = document.createElement("li");
+      const h4 = document.createElement("h4");
+      const h5 = document.createElement("h5");
+      novoCriador.classList.add("perfil");
+      h4.classList.add("nome");
+      h5.classList.add("papel");
+      h4.append(criador.name);
+      h5.append(criador.job);
+      novoCriador.append(h4);
+      novoCriador.append(h5);
+      criacao.appendChild(novoCriador);
+    });
+
+    const elenco = document.getElementById("pessoas");
+    let atores = filme.credits.cast.filter((pessoa) => {
+      return pessoa.known_for_department === "Acting";
+    });
+    atores.sort(function (a, b) {
+      return b.popularity - a.popularity;
+    });
+    atores.every((ator, indice) => {
+      if (indice > 9) {
+        return false;
+      }
+      elenco.appendChild(montaColuna(ator, "pessoa"));
+      return true;
+    });
+  }
+
+  let totalTopRated = 1;
+  function atualizaTopRated(pagina = 1, ordem = "melhorAvaliacao") {
+    let tagPai = document.getElementById("topRatedFilmes");
+    filmesTopzeira(pagina)
+      .then(({ data }) => {
+        pagina = data.page;
+        totalTopRated = data.total_pages;
+        return data.results;
+      })
+      .then((filmes) => {
+        if (ordem === "menorAvaliacao") {
+          filmes = filmes.reverse();
+        }
+        filmes.forEach((filme, indice) => {
+          if (pagina > 1 && pagina !== totalTopRated) {
+            indice =
+              document.getElementById("topRatedFilmes").lastChild.firstChild
+                .innerHTML;
+          }
+          tagPai.appendChild(montaLinhas(filme, "filme", Number(indice) + 1));
+        });
+      })
+      .then(() => {
+        document.getElementById("expandeLista").remove();
+        let proxPag = pagina + 1;
+        if (ordem === "menorAvaliacao") {
+          proxPag = pagina - 1;
+        }
+        tagPai.parentNode.insertBefore(
+          montaLinhas("", "botao", proxPag),
+          tagPai.nextSibling
         );
       });
-    });
-}
+  }
 
-window.onload = function () {
+  function atualizaEmCartaz(pagina = 1) {
+    let total = 1;
+    let tagPai = document.getElementById("nosCinemas");
+    tagPai.innerHTML = "";
+    if (pagina > 1) {
+      tagPai.appendChild(montaColuna(pagina - 1, "botaoVoltar"));
+    }
+    emCartaz(pagina)
+      .then(({ data }) => {
+        pagina = data.page;
+        total = data.total_pages;
+        return data.results;
+      })
+      .then((filmes) => {
+        filmes.forEach((filme) => {
+          tagPai.appendChild(montaColuna(filme, "filme"));
+        });
+      })
+      .then(() => {
+        if (pagina < total) {
+          tagPai.appendChild(montaColuna(pagina + 1, "botaoAvancar"));
+        }
+      });
+  }
+
+  const generos = generosExistentes().then(({ data }) => {
+    console.log(data);
+    return data;
+  });
+
   window.abrirAba = function (id) {
     let tagDivPai = document.getElementById(id);
     let tagDivFilho = tagDivPai.children.aba.classList;
@@ -354,7 +477,15 @@ window.onload = function () {
       carregaPesquisa(query, pagina);
     } else {
       atualizaEmCartaz(pagina);
-      atualizaGenero();
+    }
+  };
+
+  window.expandirTopRated = function (pagina = 0) {
+    if (pagina) {
+      atualizaTopRated(
+        pagina,
+        document.getElementById("ordemApresentacao").value
+      );
     }
   };
 
@@ -364,9 +495,11 @@ window.onload = function () {
       let conteudo = document.getElementById("conteudoIndex");
       fetch("./conteudoIndex.html")
         .then((resp) => resp.text())
-        .then((html) => (conteudo.innerHTML = html))
-        .then(atualizaEmCartaz());
-      //.then(atualizaGenero);
+        .then((html) => {
+          conteudo.innerHTML = html;
+          atualizaEmCartaz();
+          atualizaTopRated();
+        });
     } catch {
       document.location.reload(true);
     }
@@ -389,8 +522,7 @@ window.onload = function () {
             .getElementById("resultadosBusca")
             .appendChild(montaColuna(pagina + 1, "botaoMais"));
         }
-      })
-      .then(atualizaGenero);
+      });
   }
 
   const abaIndex = document.querySelector("[classe-home]");
@@ -411,6 +543,20 @@ window.onload = function () {
       carregaPesquisa(query);
     }
   };
+
+  const ordemApresentacao = document.getElementById("ordemApresentacao");
+  ordemApresentacao.onchange = function (e) {
+    document.getElementById("topRatedFilmes").innerHTML = "";
+    if (ordemApresentacao.value === "menorAvaliacao") {
+      console.log(totalTopRated);
+      atualizaTopRated(totalTopRated, ordemApresentacao.value);
+    } else {
+      atualizaTopRated(1, ordemApresentacao.value);
+    }
+
+    ordemApresentacao.focus();
+  };
+
   atualizaEmCartaz();
-  atualizaGenero();
+  atualizaTopRated();
 };
