@@ -8,12 +8,7 @@
       <div class="caixaDePesquisa">
         <form action="Pesquisa.html">
           <label for="">
-            <input
-              id="queryBusca"
-              name="query"
-              type="text"
-              placeholder="Busque por um filme..."
-            />
+            <input id="queryBusca" name="query" type="text" placeholder="Busque por um filme..." />
           </label>
           <input type="submit" value="Search" classe-pesquisa />
         </form>
@@ -69,9 +64,7 @@
         <a onclick="abrirAba('filtrar')">
           <div class="texto">
             <h2>Filtrar</h2>
-            <span class="material-symbols-outlined" id="icone"
-              >chevron_right</span
-            >
+            <span class="material-symbols-outlined" id="icone">chevron_right</span>
           </div>
         </a>
         <div class="filtros closed" id="aba">
@@ -82,14 +75,17 @@
                 <h3>Data de Lançamento:</h3>
                 <div class="entrada-data">
                   <h4>De:</h4>
-                  <input type="date" name="datamin" id="datamin" />
+                  <input type="date" name="dataMin" id="dataMin" />
                   <h4>Até:</h4>
-                  <input type="date" name="datamax" id="datamax" />
+                  <input type="date" name="dataMax" id="dataMax" />
                 </div>
               </div>
               <div class="genero">
                 <h3>Gênero:</h3>
                 <ul class="generos" id="generos"></ul>
+              </div>
+              <div>
+                <a id="botaoFiltrar" style="cursor: pointer">Filtrar</a>
               </div>
             </div>
           </div>
@@ -112,4 +108,3 @@
       </table>
     </div>
   </section>
-</div>

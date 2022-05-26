@@ -226,6 +226,8 @@ window.onload = function () {
     const h2 = document.createElement("h2");
     const divGenero = document.createElement("div");
     const over = document.createElement("p");
+    const nome = document.createElement("h2");
+    const dataLancamento = document.createElement("h3");
 
     aNome.classList.add("celulaNome");
     aNome.classList.add("tooltip");
@@ -235,8 +237,7 @@ window.onload = function () {
     divGenero.classList.add("genero");
     ul.classList.add("generos");
 
-    aNome.setAttribute("onclick", `abrirFilme(${filme.id})`);
-    aNome.setAttribute("href", "");
+    nome.setAttribute("onclick", `abrirFilme(${filme.id})`);
 
     let caminho = "";
     if (filme.poster_path) {
@@ -247,9 +248,16 @@ window.onload = function () {
     }
 
     imagem.setAttribute("src", caminho);
+    imagem.setAttribute("onclick", `abrirFilme(${filme.id})`);
 
-    aNome.append(filme.title);
+    nome.append(filme.title);
+    aNome.append(nome);
     h2.append(filme.title);
+    h2.setAttribute("onclick", `abrirFilme(${filme.id})`);
+    if (filme.release_date)
+      dataLancamento.append(
+        new Date(filme.release_date).toLocaleDateString("pt-BR")
+      );
     if (filme.overview) over.append(filme.overview);
 
     filme.genre_ids.forEach((genero_id) => {
@@ -258,6 +266,7 @@ window.onload = function () {
       aLi.setAttribute("name", "generoLi");
       generos.then((genres) => {
         aLi.append(getGenero(genero_id, genres.genres));
+        tdNome.classList.add(`${genero_id}`);
       });
       li.appendChild(aLi);
       ul.appendChild(li);
@@ -271,6 +280,7 @@ window.onload = function () {
     divImg.appendChild(imagem);
     divGenero.appendChild(ul);
     divOver.appendChild(h2);
+    divOver.appendChild(dataLancamento);
     divOver.appendChild(divGenero);
     divOver.append(over);
     spanToolTip.appendChild(divImg);
@@ -282,6 +292,7 @@ window.onload = function () {
     tdNota.append(filme.vote_average);
     tdNVotos.append(filme.vote_count);
     tdAnoLancamento.append(new Date(filme.release_date).getFullYear());
+    tdAnoLancamento.setAttribute("data", filme.release_date);
 
     tr.appendChild(tdRank);
     tr.appendChild(tdNome);
@@ -313,8 +324,39 @@ window.onload = function () {
     }
     let tagPai = document.getElementById("topRatedFilmes");
     tagPai.innerHTML = "";
-    filmes.forEach((filme) => {
-      console.log(filme);
+    filmes.forEach((filme, indice) => {
+      filme.children[0].innerHTML = indice + 1;
+      tagPai.appendChild(filme);
+    });
+  }
+
+  function filtrarPor(dataMin, dataMax, generos) {
+    let filmes = [];
+    document.querySelectorAll("[ordenacao]").forEach((tr) => {
+      filmes.push(tr);
+    });
+
+    if (dataMin) {
+      const dataMenor = (filme) =>
+        filme.children[4].getAttribute("data") >= dataMin;
+      filmes = filmes.filter(dataMenor);
+    }
+    if (dataMax) {
+      const dataMaior = (filme) =>
+        filme.children[4].getAttribute("data") <= dataMax;
+      filmes = filmes.filter(dataMaior);
+    }
+    if (generos.length) {
+      generos.forEach((genero) => {
+        filmes = filmes.filter((filme) =>
+          filme.children[1].classList.contains(genero)
+        );
+      });
+    }
+    let tagPai = document.getElementById("topRatedFilmes");
+    tagPai.innerHTML = "";
+    filmes.forEach((filme, indice) => {
+      filme.children[0].innerHTML = indice + 1;
       tagPai.appendChild(filme);
     });
   }
@@ -421,7 +463,8 @@ window.onload = function () {
       genres.genres.forEach((genero) => {
         const li = document.createElement("li");
         const aLi = document.createElement("a");
-        aLi.setAttribute("name", "generoLi");
+        li.setAttribute("onclick", `ativar(${genero.id})`);
+        aLi.id = genero.id;
         aLi.append(genero.name);
         li.appendChild(aLi);
         ul.appendChild(li);
@@ -533,10 +576,15 @@ window.onload = function () {
     }
   };
 
+  window.ativar = function (id) {
+    document.getElementById(id).parentNode.classList.toggle("filtroAtivo");
+    document.getElementById(id).classList.toggle("ativo");
+  };
+
   function carregaIndex() {
     try {
       query = "";
-      let conteudo = document.getElementById("conteudoIndex");
+      let conteudo = document.getElementById("conteudoSite");
       fetch("./conteudoIndex.html")
         .then((resp) => resp.text())
         .then((html) => {
@@ -546,6 +594,7 @@ window.onload = function () {
           atualizaTopRated();
         });
     } catch {
+      console.log("DEU ERRO");
       document.location.reload(true);
     }
   }
@@ -614,6 +663,24 @@ window.onload = function () {
       }
     }
     ordemPorVotos.focus();
+  };
+
+  const filtrar = document.getElementById("botaoFiltrar");
+  filtrar.onclick = function (e) {
+    console.log("clicou");
+    const dataMin = document.getElementById("dataMin").value;
+    const dataMax = document.getElementById("dataMax").value;
+    const generosFiltrados = document.querySelectorAll(".ativo");
+    let generosExigidos = [];
+    generosFiltrados.forEach((genero) => {
+      generosExigidos.push(genero.id);
+    });
+    if (dataMin || dataMax || generosExigidos.length) {
+      filtrarPor(dataMin, dataMax, generosExigidos);
+    } else {
+      document.getElementById("topRatedFilmes").innerHTML = "";
+      atualizaTopRated();
+    }
   };
 
   atualizaEmCartaz();

@@ -52,7 +52,7 @@ header {
   text-decoration: none;
   font-size: 18px;
   line-height: 25px;
-  border-radius: 4px;
+  cursor: pointer;
 }
 
 .header a:hover {
@@ -268,6 +268,7 @@ section {
     display: flex;
   }
   input[type="submit"] {
+    cursor: pointer;
     display: inline-flex;
     justify-content: center;
     align-content: center;
@@ -384,7 +385,9 @@ section {
   border-radius: 8px;
   padding: 5px;
   border: #555 solid 1px;
-
+  a {
+    cursor: pointer;
+  }
   .avancarEVoltar {
     width: 150px;
     display: flex;
@@ -499,8 +502,12 @@ table {
   display: table-row;
   width: 100%;
   border-collapse: collapse;
-  font-size: 13px;
-
+  font-size: 15px;
+  h2 {
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: 400;
+  }
   div.botaoMais {
     display: grid;
     justify-items: center;
@@ -514,8 +521,10 @@ table {
 
 .topRatedList {
   margin-top: 35px;
-
   padding: 0px 40px;
+  a {
+    cursor: pointer;
+  }
 }
 
 .topRatedList th {
@@ -582,8 +591,9 @@ table {
 }
 
 .tooltip .tooltipContent {
+  cursor: default;
   visibility: hidden;
-  width: 350px;
+  width: 400px;
   height: 300px;
   background-color: $primario_1;
   color: #fff;
@@ -604,6 +614,9 @@ table {
 .tooltipTexto {
   overflow-x: hidden;
   overflow-y: scroll;
+  .genero {
+    margin-top: -15px;
+  }
 }
 
 .tooltipTexto h2 {
@@ -611,12 +624,20 @@ table {
   padding-top: 10px;
 }
 
+.tooltipTexto h2:hover {
+  color: $primario_3;
+}
+
 .tooltipTexto h3 {
+  font-size: 14px;
+  font-weight: 400;
   margin: 0;
-  padding: 0px 5px;
+  padding: 5px 5px;
 }
 
 .tooltipTexto p {
+  text-indent: 10%;
+  font-size: 14px;
   text-align: justify;
   margin: 0;
   padding: 0px 10px;
@@ -627,12 +648,17 @@ table {
   width: 170px;
   height: 280px;
   img {
+    cursor: pointer;
     min-height: 225px;
     border-radius: 8px;
     height: 280px;
     width: 170px;
     background: transparent;
     box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1);
+  }
+  img:hover {
+    transition: 0.2s;
+    box-shadow: 0 2px 8px 3px rgba(218, 165, 32, 0.4);
   }
 }
 
@@ -752,29 +778,30 @@ div.genero ul {
   margin-top: 5px;
   margin-bottom: 5px;
   padding-left: 0;
-}
-div.genero ul > li {
-  display: inline-flex;
-  border: 1px solid #9e9e9e;
-  border-radius: 14px;
-  padding: 2px 5px;
-  font-size: 0.8em;
-  margin-right: 2px;
-  margin-top: 8px;
-  cursor: pointer;
-}
+  li {
+    display: inline-flex;
+    border: 1px solid #9e9e9e;
+    border-radius: 14px;
+    padding: 2px 5px;
+    font-size: 0.8em;
+    margin-right: 2px;
+    margin-top: 8px;
+    cursor: pointer;
+  }
+  li:hover {
+    display: inline-flex;
+    border: 1px solid $primario_3;
+    border-radius: 14px;
+  }
+  .ativo {
+    display: inline-flex;
 
-.filtrar div.genero ul > li:hover {
-  display: inline-flex;
-  border: 1px solid $primario_3;
-  border-radius: 14px;
-}
-
-.filtrar div.genero ul > li:active {
-  display: inline-flex;
-  color: $primario_3;
-  border: 1px solid $primario_3;
-  border-radius: 14px;
+    border: 1px solid $primario_3;
+    border-radius: 14px;
+    a {
+      color: $primario_3;
+    }
+  }
 }
 
 .closed {
