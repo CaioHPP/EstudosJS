@@ -730,6 +730,20 @@ table div.botaoMais span {
   min-height: 120px;
   cursor: default;
 }
+.opcoes div.filtrar .filtros .tituloBotao {
+  display: flex;
+  justify-content: space-between;
+}
+.opcoes div.filtrar .filtros .botaoFiltrar {
+  margin-right: 10px;
+  padding: 10px;
+}
+.opcoes div.filtrar .filtros .botaoFiltrar a {
+  cursor: pointer;
+  border: 1px solid goldenrod;
+  border-radius: 13px;
+  padding: 5px;
+}
 
 .filtrar h3 {
   margin: 0px;
@@ -743,6 +757,7 @@ table div.botaoMais span {
 .filtrar div.filtros div.opcoes-filtro {
   display: flex;
   justify-content: flex-start;
+  flex-wrap: wrap;
 }
 
 div.opcoes-filtro div.data {

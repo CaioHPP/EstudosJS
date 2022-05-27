@@ -733,6 +733,20 @@ table {
   .filtros {
     min-height: 120px;
     cursor: default;
+    .tituloBotao {
+      display: flex;
+      justify-content: space-between;
+    }
+    .botaoFiltrar {
+      margin-right: 10px;
+      padding: 10px;
+      a {
+        cursor: pointer;
+        border: 1px solid $primario_3;
+        border-radius: 13px;
+        padding: 5px;
+      }
+    }
   }
 }
 
@@ -748,6 +762,7 @@ table {
 .filtrar div.filtros div.opcoes-filtro {
   display: flex;
   justify-content: flex-start;
+  flex-wrap: wrap;
 }
 
 div.opcoes-filtro div.data {
