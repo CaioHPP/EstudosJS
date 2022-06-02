@@ -137,6 +137,7 @@ window.onload = function () {
         aImagem.setAttribute("onclick", `proxPagina(${filme})`);
         divImagem.classList.add("avancarBusca");
         divColuna.style.border = 0;
+        divColuna.setAttribute("id", "botaoMais");
       }
       aImagem.appendChild(span);
 
@@ -473,7 +474,14 @@ window.onload = function () {
   }
 
   let totalTopRated = 1;
-  function atualizaTopRated(pagina = 1, ordem = "melhorAvaliacao") {
+  function atualizaTopRated(ordem = "melhorAvaliacao", pagina = 0) {
+    if (!pagina) {
+      if (ordem === "menorAvaliacao") {
+        pagina = totalTopRated;
+      } else {
+        pagina = 1;
+      }
+    }
     let tagPai = document.getElementById("topRatedFilmes");
     filmesTopzeira(pagina)
       .then(({ data }) => {
@@ -487,9 +495,13 @@ window.onload = function () {
         }
         filmes.forEach((filme, indice) => {
           if (pagina > 1 && pagina !== totalTopRated) {
-            indice =
-              document.getElementById("topRatedFilmes").lastChild.firstChild
-                .innerHTML;
+            try {
+              indice =
+                document.getElementById("topRatedFilmes").lastChild.firstChild
+                  .innerHTML;
+            } catch {
+              indice = 0;
+            }
           }
           tagPai.appendChild(montaLinhas(filme, "filme", Number(indice) + 1));
         });
@@ -504,6 +516,9 @@ window.onload = function () {
           montaLinhas("", "botao", proxPag),
           tagPai.nextSibling
         );
+        if (document.getElementById("ordemPorVoto").value) {
+          ordenaPor();
+        }
       });
   }
 
@@ -569,10 +584,9 @@ window.onload = function () {
   window.expandirTopRated = function (pagina = 0) {
     if (pagina) {
       atualizaTopRated(
-        pagina,
-        document.getElementById("ordemApresentacao").value
+        document.getElementById("ordemApresentacao").value,
+        pagina
       );
-      ordenaPor();
     }
   };
 
@@ -600,8 +614,6 @@ window.onload = function () {
   }
 
   function carregaPesquisa(query, pagina = 0) {
-    let pesquisa = document.getElementById("conteudoIndex");
-    pesquisa.innerHTML = montaResultado();
     let total = 0;
     buscaFilme(query, pagina)
       .then(({ data }) => {
@@ -612,9 +624,13 @@ window.onload = function () {
       .then(atualizaBusca)
       .then(() => {
         if (pagina < total) {
+          if (pagina > 1) {
+            document.getElementById("botaoMais").remove();
+          }
           document
             .getElementById("resultadosBusca")
             .appendChild(montaColuna(pagina + 1, "botaoMais"));
+          document.getElementById("resultadosBusca").lastChild.on{
         }
       });
   }
@@ -633,6 +649,8 @@ window.onload = function () {
     e.preventDefault();
     query = abaPesquisa.form.query.value;
     if (query && ultimaBusca !== query) {
+      let pesquisa = document.getElementById("conteudoIndex");
+      pesquisa.innerHTML = montaResultado();
       ultimaBusca = query;
       carregaPesquisa(query);
     }
@@ -641,11 +659,7 @@ window.onload = function () {
   const ordemApresentacao = document.getElementById("ordemApresentacao");
   ordemApresentacao.onchange = function (e) {
     document.getElementById("topRatedFilmes").innerHTML = "";
-    if (ordemApresentacao.value === "menorAvaliacao") {
-      atualizaTopRated(totalTopRated, ordemApresentacao.value);
-    } else {
-      atualizaTopRated(1, ordemApresentacao.value);
-    }
+    atualizaTopRated(ordemApresentacao.value);
     ordemPorVotos.options[0].selected = true;
     ordemApresentacao.focus();
   };
@@ -656,18 +670,13 @@ window.onload = function () {
       ordenaPor();
     } else {
       document.getElementById("topRatedFilmes").innerHTML = "";
-      if (ordemApresentacao.value === "menorAvaliacao") {
-        atualizaTopRated(totalTopRated, ordemApresentacao.value);
-      } else {
-        atualizaTopRated(1, ordemApresentacao.value);
-      }
+      atualizaTopRated(ordemApresentacao.value);
     }
     ordemPorVotos.focus();
   };
 
   const filtrar = document.getElementById("botaoFiltrar");
   filtrar.onclick = function (e) {
-    console.log("clicou");
     const dataMin = document.getElementById("dataMin").value;
     const dataMax = document.getElementById("dataMax").value;
     const generosFiltrados = document.querySelectorAll(".ativo");
@@ -677,10 +686,25 @@ window.onload = function () {
     });
     if (dataMin || dataMax || generosExigidos.length) {
       filtrarPor(dataMin, dataMax, generosExigidos);
+      document
+        .getElementById("botaoRestaurar")
+        .parentNode.classList.remove("closed");
     } else {
       document.getElementById("topRatedFilmes").innerHTML = "";
-      atualizaTopRated();
+      document
+        .getElementById("botaoRestaurar")
+        .parentNode.classList.add("closed");
+      ordemPorVotos.options[0].selected = true;
+      atualizaTopRated(ordemApresentacao.value);
     }
+  };
+
+  const restaurar = document.getElementById("botaoRestaurar");
+  restaurar.onclick = function (e) {
+    document.getElementById("topRatedFilmes").innerHTML = "";
+    atualizaTopRated(ordemApresentacao.value);
+    restaurar.parentNode.classList.add("closed");
+    ordemPorVotos.options[0].selected = true;
   };
 
   atualizaEmCartaz();

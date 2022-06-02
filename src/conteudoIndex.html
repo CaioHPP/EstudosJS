@@ -3,14 +3,14 @@
     <div class="conteudo-wrap">
       <div class="textoBemVindo">
         <h2>Bem Vindo!</h2>
-        <h3>Este e um site feito para um estudo de Web.</h3>
+        <h3>Este é um site feito para um estudo de Web.</h3>
       </div>
       <div class="caixaDePesquisa">
-        <form action="Pesquisa.html">
+        <form action="">
           <label for="">
             <input id="queryBusca" name="query" type="text" placeholder="Busque por um filme..." />
           </label>
-          <input type="submit" value="Search" classe-pesquisa />
+          <input type="submit" value="Buscar" classe-pesquisa />
         </form>
       </div>
     </div>
@@ -70,8 +70,14 @@
         <div class="filtros closed" id="aba">
           <div class="tituloBotao">
             <h3>Filtrar por:</h3>
-            <div class="botaoFiltrar">
-              <a id="botaoFiltrar">Filtrar</a>
+            <div class="botoes">
+
+              <div class="botaoFiltrar">
+                <a id="botaoFiltrar">Filtrar</a>
+              </div>
+              <div class="botaoFiltrar closed">
+                <a id="botaoRestaurar">Restaurar</a>
+              </div>
             </div>
           </div>
 
@@ -81,10 +87,15 @@
                 <h3>Data de Lançamento:</h3>
 
                 <div class="entrada-data">
-                  <h4>De:</h4>
-                  <input type="date" name="dataMin" id="dataMin" />
-                  <h4>Até:</h4>
-                  <input type="date" name="dataMax" id="dataMax" />
+                  <div>
+                    <h4>De:</h4>
+                    <input type="date" name="dataMin" id="dataMin" />
+                  </div>
+                  <div>
+
+                    <h4>Até:</h4>
+                    <input type="date" name="dataMax" id="dataMax" />
+                  </div>
                 </div>
               </div>
               <div class="genero">

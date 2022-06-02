@@ -36,7 +36,7 @@ header {
   transition-duration: 0.2s;
   transition-timing-function: linear;
   transition-delay: 0s;
-  border-bottom: 1px solid goldenrod;
+  border-bottom: 1px solid #ff6900;
 }
 
 .header a {
@@ -50,30 +50,12 @@ header {
   cursor: pointer;
 }
 
-.header a:hover {
-  background-color: rgb(26, 26, 26);
-  border-radius: 4px;
-  border-style: solid;
-  border-color: goldenrod;
-  border-width: 1px;
-  color: white;
-}
-
-.header a.active {
-  background-color: rgb(26, 26, 26);
-  border-radius: 4px;
-  border-style: solid;
-  border-color: goldenrod;
-  border-width: 1px;
-  color: white;
-}
-
 footer {
   background-color: rgb(26, 26, 26);
 }
 
 section {
-  border-bottom: 1px solid goldenrod;
+  border-bottom: 1px solid #ff6900;
 }
 
 .content {
@@ -91,15 +73,8 @@ section {
 }
 
 .esquerda h1 {
+  font-family: "Montserrat", sans-serif;
   font-size: 1.7em;
-}
-
-.direita {
-  display: flex;
-  justify-content: flex-end;
-  flex-wrap: nowrap;
-  margin: 0px;
-  align-items: center;
 }
 
 .gradiente {
@@ -150,6 +125,7 @@ section {
   margin-right: 30px;
 }
 .detalhes-filme .poster img {
+  box-shadow: 0px 4px 8px 3px rgba(0, 0, 0, 0.58);
   height: 450px;
   width: 300px;
   border-radius: 3px;
@@ -263,14 +239,15 @@ section {
   justify-content: center;
   align-content: center;
   align-items: center;
-  height: 46px;
+  height: 48px;
   padding: 10px 26px;
   border-radius: 30px;
   position: absolute;
-  top: 0;
+  top: -1px;
   right: -1px;
   background: rgb(44, 42, 42);
-  color: goldenrod;
+  color: #ff6900;
+  border: none;
 }
 .conteudo-wrap form input[type=text] {
   width: 100%;
@@ -308,6 +285,7 @@ section {
 }
 
 .conteudo-filmes div.header-section {
+  padding-top: 20px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -354,24 +332,44 @@ section {
   height: auto;
 }
 .midia div.colunas .filme {
+  margin-left: 30px;
   margin-bottom: 30px;
   width: 400px;
-  height: 300px;
+  height: auto;
   display: inline-flex;
 }
 .midia div.colunas .filme div.informacoes .genero {
   margin-top: -16px;
 }
-.midia div.colunas .pesquisa {
-  margin-left: 50px;
+@media screen and (max-width: 425px) {
+  .midia div.colunas .pesquisa {
+    max-height: 180px;
+    width: 250px;
+    overflow: hidden;
+    margin-left: 0;
+  }
+}
+.midia div.colunas .pesquisa .informacoes {
+  overflow: hidden;
+}
+@media screen and (max-width: 425px) {
+  .midia div.colunas .pesquisa .overview {
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
 }
 
 .midia div.resultado {
   flex-wrap: wrap;
 }
+@media screen and (max-width: 768px) {
+  .midia div.resultado {
+    justify-content: center;
+  }
+}
 
 .midia div.colunas div.coluna {
-  margin-left: 30px;
   border-radius: 8px;
   padding: 5px;
   border: #555 solid 1px;
@@ -412,7 +410,7 @@ section {
   cursor: pointer;
 }
 .midia div.colunas div.coluna .imagem {
-  min-height: 225px;
+  min-height: 130px;
   border-radius: 8px;
   background: transparent;
   transition: 0.3s;
@@ -421,11 +419,12 @@ section {
 }
 
 .midia div.colunas div.coluna div.imagem:hover {
-  box-shadow: 0 2px 8px 3px rgba(218, 165, 32, 0.4);
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0px 0px 14px 3px rgba(109, 109, 109, 0.58);
 }
 
 .midia div.colunas div.coluna div.imagem img {
-  box-shadow: 0 0 5px 1px rgba(255, 255, 255, 0.1);
+  box-shadow: 0px 4px 8px 3px rgba(0, 0, 0, 0.28);
   border-radius: 8px;
   width: 100%;
   height: 100%;
@@ -475,7 +474,7 @@ section {
 
 .midia div.colunas div.coluna div.informacoes h2 a:hover {
   text-decoration: none;
-  color: rgb(218, 165, 32);
+  color: #ff6900;
 }
 
 .midia div.colunas div.coluna div.informacoes h4 {
@@ -503,7 +502,7 @@ table div.botaoMais {
   display: grid;
   justify-items: center;
   cursor: pointer;
-  border-top: 1px solid goldenrod;
+  border-top: 1px solid #ff6900;
 }
 table div.botaoMais span {
   font-size: 60px;
@@ -512,6 +511,11 @@ table div.botaoMais span {
 .topRatedList {
   margin-top: 35px;
   padding: 0px 40px;
+  box-sizing: border-box;
+  min-width: 100%;
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
 }
 .topRatedList a {
   cursor: pointer;
@@ -521,7 +525,7 @@ table div.botaoMais span {
   text-align: center;
   vertical-align: middle;
   border: none;
-  border-bottom: 1px solid goldenrod;
+  border-bottom: 1px solid #ff6900;
   font-size: 1rem;
   font-weight: 300;
   padding: 5px 50px;
@@ -531,7 +535,7 @@ table div.botaoMais span {
   text-align: center;
   vertical-align: middle;
   border: none;
-  border-bottom: 1px solid goldenrod;
+  border-bottom: 1px solid #ff6900;
   font-size: 1rem;
   font-weight: 300;
   padding: 0;
@@ -542,7 +546,7 @@ table div.botaoMais span {
   text-align: left;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   outline: none;
-  border-bottom: 1px solid goldenrod;
+  border-bottom: 1px solid #ff6900;
 }
 
 .topRatedList tbody tr:last-child {
@@ -555,7 +559,7 @@ table div.botaoMais span {
 
 .topRatedList td.celulaOrdem {
   padding: 0rem;
-  color: rgb(207, 205, 205);
+  color: white;
   font-weight: 700;
   text-align: center;
 }
@@ -575,7 +579,7 @@ table div.botaoMais span {
 
 .topRatedList a:hover {
   text-decoration: none;
-  color: rgb(218, 165, 32);
+  color: #ff6900;
 }
 
 .topRatedList a.tooltip {
@@ -607,6 +611,7 @@ table div.botaoMais span {
 .tooltipTexto {
   overflow-x: hidden;
   overflow-y: scroll;
+  padding-right: 8px;
 }
 .tooltipTexto .genero {
   margin-top: -15px;
@@ -618,7 +623,7 @@ table div.botaoMais span {
 }
 
 .tooltipTexto h2:hover {
-  color: goldenrod;
+  color: #ff6900;
 }
 
 .tooltipTexto h3 {
@@ -648,11 +653,7 @@ table div.botaoMais span {
   height: 280px;
   width: 170px;
   background: transparent;
-  box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1);
-}
-.tooltipImagem img:hover {
-  transition: 0.2s;
-  box-shadow: 0 2px 8px 3px rgba(218, 165, 32, 0.4);
+  box-shadow: 0px 4px 8px 3px rgba(0, 0, 0, 0.58);
 }
 
 .opcoes {
@@ -660,31 +661,43 @@ table div.botaoMais span {
   height: auto;
   min-height: 120px;
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: flex-start;
   align-content: flex-start;
 }
 
 .opcoes div.ordenar {
+  padding: 0px 10px;
   margin: 0px 0px;
   margin-top: 20px;
   margin-right: 40px;
   font-size: 0.8em;
   transition: 0.2s;
   border-radius: 8px;
-  border-color: goldenrod;
+  border-color: #ff6900;
   border-style: solid;
   border-width: 0.1em;
   width: 15%;
+}
+@media screen and (max-width: 600px) {
+  .opcoes div.ordenar {
+    max-width: 300px;
+    padding: 0px 10px;
+    min-width: 260px;
+    margin-right: 0px;
+  }
 }
 .opcoes div.ordenar a {
   cursor: pointer;
 }
 .opcoes div.ordenar div.ordenacaoInline {
-  display: grid;
+  display: flex;
+  flex-direction: column;
 }
 
 .opcoes div.texto {
+  overflow: hidden;
   margin: 0;
   display: flex;
   justify-content: space-between;
@@ -696,6 +709,7 @@ table div.botaoMais span {
 }
 
 .ordenar div.selecao {
+  overflow: hidden;
   margin: 10px 15px;
   justify-content: space-between;
   align-content: center;
@@ -720,15 +734,26 @@ table div.botaoMais span {
   font-size: 0.8em;
   transition: 0.2s;
   border-radius: 8px;
-  border-color: goldenrod;
+  border-color: #ff6900;
   border-style: solid;
   border-width: 0.1em;
   width: 50%;
   cursor: pointer;
 }
+@media screen and (max-width: 600px) {
+  .opcoes div.filtrar {
+    max-width: 300px;
+    padding: 0px 10px;
+    min-width: 260px;
+    margin-right: 0px;
+  }
+}
 .opcoes div.filtrar .filtros {
   min-height: 120px;
   cursor: default;
+}
+.opcoes div.filtrar .filtros .botoes {
+  display: flex;
 }
 .opcoes div.filtrar .filtros .tituloBotao {
   display: flex;
@@ -736,11 +761,10 @@ table div.botaoMais span {
 }
 .opcoes div.filtrar .filtros .botaoFiltrar {
   margin-right: 10px;
-  padding: 10px;
 }
 .opcoes div.filtrar .filtros .botaoFiltrar a {
   cursor: pointer;
-  border: 1px solid goldenrod;
+  border: 1px solid #ff6900;
   border-radius: 13px;
   padding: 5px;
 }
@@ -767,6 +791,10 @@ div.opcoes-filtro div.data .entrada-data {
   display: flex;
   align-items: baseline;
   margin-left: 15px;
+  flex-wrap: wrap;
+}
+div.opcoes-filtro div.data .entrada-data div {
+  display: flex;
 }
 div.opcoes-filtro div.data .entrada-data h4 {
   margin-top: 0px;
@@ -801,16 +829,16 @@ div.genero ul li {
 }
 div.genero ul li:hover {
   display: inline-flex;
-  border: 1px solid goldenrod;
+  border: 1px solid #ff6900;
   border-radius: 14px;
 }
-div.genero ul .ativo {
+div.genero ul .filtroAtivo {
   display: inline-flex;
-  border: 1px solid goldenrod;
+  border: 1px solid #ff6900;
   border-radius: 14px;
 }
-div.genero ul .ativo a {
-  color: goldenrod;
+div.genero ul .filtroAtivo a {
+  color: #ff6900;
 }
 
 .closed {
