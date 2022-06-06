@@ -548,7 +548,7 @@ window.onload = function () {
   }
 
   const generos = generosExistentes().then(({ data }) => {
-    console.log(data);
+    
     return data;
   });
 
