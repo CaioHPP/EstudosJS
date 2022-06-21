@@ -548,7 +548,6 @@ window.onload = function () {
   }
 
   const generos = generosExistentes().then(({ data }) => {
-    
     return data;
   });
 
@@ -595,7 +594,25 @@ window.onload = function () {
     document.getElementById(id).classList.toggle("ativo");
   };
 
+  window.onscroll = function () {
+    if (document.getElementById("index").hasAttribute("pesquisa")) {
+      if (document.getElementById("index").getAttribute("pagina") > -1) {
+        if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+          console.log(document.getElementById("index").getAttribute("pagina"));
+          carregaPesquisa(
+            query,
+            Number.parseInt(
+              document.getElementById("index").getAttribute("pagina")
+            ) + 1
+          );
+        }
+      }
+    }
+  };
+
   function carregaIndex() {
+    document.getElementById("index").removeAttribute("pesquisa");
+    document.getElementById("index").removeAttribute("pagina");
     try {
       query = "";
       let conteudo = document.getElementById("conteudoSite");
@@ -614,6 +631,7 @@ window.onload = function () {
   }
 
   function carregaPesquisa(query, pagina = 0) {
+    document.getElementById("index").setAttribute("pesquisa", true);
     let total = 0;
     buscaFilme(query, pagina)
       .then(({ data }) => {
@@ -624,13 +642,9 @@ window.onload = function () {
       .then(atualizaBusca)
       .then(() => {
         if (pagina < total) {
-          if (pagina > 1) {
-            document.getElementById("botaoMais").remove();
-          }
-          document
-            .getElementById("resultadosBusca")
-            .appendChild(montaColuna(pagina + 1, "botaoMais"));
-          document.getElementById("resultadosBusca").lastChild.on{
+          document.getElementById("index").setAttribute("pagina", pagina);
+        } else {
+          document.getElementById("index").setAttribute("pagina", -1);
         }
       });
   }
