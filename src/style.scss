@@ -240,7 +240,7 @@ section {
   width: 100%;
 }
 
-.conteudo-wrap form {
+.conteudo-wrap .form {
   margin-top: 30px;
   position: relative;
   top: 0;
@@ -502,12 +502,31 @@ section {
   font-weight: 300;
 }
 
+.tabela {
+  @media screen and (max-width: 600px) {
+    overflow-y: hidden;
+  }
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  vertical-align: middle;
+}
+
 table {
+  @media screen and (max-width: 600px) {
+    width: 100%;
+    font-size: 13px;
+  }
   display: table-row;
-  width: 100%;
   border-collapse: collapse;
   font-size: 15px;
+
   h2 {
+    @media screen and (max-width: 600px) {
+      font-size: 13px;
+    }
     cursor: pointer;
     font-size: 20px;
     font-weight: 400;
@@ -577,6 +596,9 @@ table {
   text-align: center;
 }
 .topRatedList td {
+  @media screen and (max-width: 600px) {
+    font-size: 13px;
+  }
   font-size: 1rem;
   text-align: center;
   vertical-align: middle;

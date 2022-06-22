@@ -11,6 +11,7 @@ import { getGenero } from "./servicoAPI.js";
 import { filmesTopzeira } from "./servicoAPI.js";
 
 window.onload = function () {
+  window.history.pushState({ state: "index" }, "index", "/src/index.html");
   function montaDetalhes() {
     return `<div id="conteudoIndex">
   <div class="conteudoDetalhes">
@@ -75,6 +76,135 @@ window.onload = function () {
       </div>
     </section>
   </div>`;
+  }
+
+  function montaIndex() {
+    return `<section id="busca" class="inner-content nova-sessao">
+    <div class="conteudo">
+      <div class="conteudo-wrap">
+        <div class="textoBemVindo">
+          <h2>Bem Vindo!</h2>
+          <h3>Este é um site feito para um estudo de Web.</h3>
+        </div>
+        <div class="caixaDePesquisa">
+            <div class="form">
+              <label for="">
+                <input id="queryBusca" name="query" type="text" placeholder="Busque por um filme..." />
+              </label>
+              <input type="submit" value="Buscar" classe-pesquisa />
+            </div>
+          </div>
+      </div>
+    </div>
+  </section>
+  <div id="conteudoIndex">
+    <section class="inner-content nova-sessao">
+      <div class="conteudo-filmes">
+        <div class="header-section">
+          <h2>Nos Cinemas</h2>
+        </div>
+        <div class="midia">
+          <div id="nosCinemas" class="colunas"></div>
+        </div>
+      </div>
+    </section>
+    <section id="topRated" class="inner-content nova-sessao">
+      <div class="conteudo-filmes">
+        <div class="header-section">
+          <h2>Mais bem avaliados</h2>
+        </div>
+      </div>
+      <div class="opcoes">
+        <div class="ordenar" id="ordenar">
+          <a onclick="abrirAba('ordenar')">
+            <div class="texto">
+              <h2>Ordenar</h2>
+              <span class="material-symbols-outlined" id="icone">
+                chevron_right
+              </span>
+            </div>
+          </a>
+  
+          <div class="selecao closed" id="aba">
+            <h3>Ordenar por:</h3>
+            <div class="ordenacaoInline">
+              <select name="" id="ordemApresentacao">
+                <option value="melhorAvaliacao">Melhor Avaliação</option>
+                <option value="menorAvaliacao">Pior Avaliação</option>
+              </select>
+              <select name="" id="ordemPorVoto">
+                <option value="">--Selecione--</option>
+                <option value="votosMaior">Mais Votado</option>
+                <option value="votosMenor">Menos Votado</option>
+              </select>
+            </div>
+          </div>
+        </div>
+  
+        <div class="filtrar" id="filtrar">
+          <a onclick="abrirAba('filtrar')">
+            <div class="texto">
+              <h2>Filtrar</h2>
+              <span class="material-symbols-outlined" id="icone">chevron_right</span>
+            </div>
+          </a>
+          <div class="filtros closed" id="aba">
+            <div class="tituloBotao">
+              <h3>Filtrar por:</h3>
+              <div class="botoes">
+  
+                <div class="botaoFiltrar">
+                  <a id="botaoFiltrar">Filtrar</a>
+                </div>
+                <div class="botaoFiltrar closed">
+                  <a id="botaoRestaurar">Restaurar</a>
+                </div>
+              </div>
+            </div>
+  
+            <div>
+              <div class="opcoes-filtro">
+                <div class="data">
+                  <h3>Data de Lançamento:</h3>
+  
+                  <div class="entrada-data">
+                    <div>
+                      <h4>De:</h4>
+                      <input type="date" name="dataMin" id="dataMin" />
+                    </div>
+                    <div>
+  
+                      <h4>Até:</h4>
+                      <input type="date" name="dataMax" id="dataMax" />
+                    </div>
+                  </div>
+                </div>
+                <div class="genero">
+                  <h3>Gênero:</h3>
+                  <ul class="generos" id="generos"></ul>
+                </div>
+  
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class=" topRatedList">
+        <table>
+          <thead>
+            <tr>
+              <th class="rank">Rank</th>
+              <th class="nomeFilme">Nome</th>
+              <th class="notaAvaliacao">Avaliação dos Usuários</th>
+              <th class="votos">N.º de Votos</th>
+              <th class="anoLancamento">Ano de Lançamento</th>
+            </tr>
+          </thead>
+          <tbody id="topRatedFilmes"></tbody>
+          <div id="expandeLista"></div>
+        </table>
+      </div>
+    </section>`;
   }
 
   function montaColuna(filme, tipo) {
@@ -369,8 +499,20 @@ window.onload = function () {
       tagPai.appendChild(montaColuna(filme, "pesquisa"));
     });
   }
-
+  window.onpopstate = function (event) {
+    if (event && event.state) {
+      if (location.pathname.includes("/detalhes/")) {
+        carregaFilme(event.state.id_filme);
+      } else if (location.pathname.includes("/pesquisa/")) {
+        pesquisaFilme(event.state.query);
+      } else if (location.pathname.includes("/src/")) {
+        carregaIndex();
+      }
+    }
+  };
   function atualizaDetalhesFilme(filme) {
+    document.title = `${filme.title}`;
+
     let caminho = "";
     if (filme.poster_path) {
       caminho = `https://image.tmdb.org/t/p/w500/${filme.poster_path}`;
@@ -396,11 +538,15 @@ window.onload = function () {
     let data = new Date(filme.release_date);
     anoFilme.append(`(${data.getFullYear()})`);
     let classificacao = document.getElementById("classificacao");
-    classificacao.append(
-      filme.releases.countries.find(
-        (certificacao) => certificacao.iso_3166_1 === "BR"
-      ).certification
-    );
+    try {
+      classificacao.append(
+        filme.releases.countries.find(
+          (certificacao) => certificacao.iso_3166_1 === "BR"
+        ).certification
+      );
+    } catch (e) {
+      classificacao.append("NA");
+    }
     let dataFilme = document.getElementById("dataFilme");
     dataFilme.append(data.toLocaleDateString("pt-BR"));
 
@@ -562,7 +708,9 @@ window.onload = function () {
           "expand_more");
   };
 
-  window.abrirFilme = function (id) {
+  function carregaFilme(id) {
+    document.getElementById("index").removeAttribute("pesquisa");
+    document.getElementById("index").removeAttribute("pagina");
     let filme = document.getElementById("conteudoSite");
     filme.innerHTML = montaDetalhes();
     detalhesFilme(id)
@@ -570,6 +718,15 @@ window.onload = function () {
         return data;
       })
       .then(atualizaDetalhesFilme);
+  }
+
+  window.abrirFilme = function (id) {
+    window.history.pushState(
+      { state: "detalhes", id_filme: id },
+      "Detalhes",
+      `/detalhes/${id}`
+    );
+    carregaFilme(id);
   };
 
   window.proxPagina = function (pagina) {
@@ -598,7 +755,6 @@ window.onload = function () {
     if (document.getElementById("index").hasAttribute("pesquisa")) {
       if (document.getElementById("index").getAttribute("pagina") > -1) {
         if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-          console.log(document.getElementById("index").getAttribute("pagina"));
           carregaPesquisa(
             query,
             Number.parseInt(
@@ -613,25 +769,36 @@ window.onload = function () {
   function carregaIndex() {
     document.getElementById("index").removeAttribute("pesquisa");
     document.getElementById("index").removeAttribute("pagina");
-    try {
-      query = "";
-      let conteudo = document.getElementById("conteudoSite");
-      fetch("./conteudoIndex.html")
-        .then((resp) => resp.text())
-        .then((html) => {
-          conteudo.innerHTML = html;
-          atualizaFiltro();
-          atualizaEmCartaz();
-          atualizaTopRated();
-        });
-    } catch {
-      console.log("DEU ERRO");
-      document.location.reload(true);
-    }
+    document.title = `Meu Site`;
+    query = "";
+    let conteudo = document.getElementById("conteudoSite");
+    conteudo.innerHTML = "";
+    conteudo.innerHTML = montaIndex();
+
+    window.abaPesquisa = document.querySelector("[classe-pesquisa]");
+    abaPesquisa.onclick = function (e) {
+      console.log("click");
+      e.preventDefault();
+      query = document.getElementById("queryBusca").value;
+      if (query) {
+        window.history.pushState(
+          { state: "pesquisa", query },
+          "Pesquisa",
+          `/pesquisa/${query}`
+        );
+        document.title = `${query} - Resultados`;
+        pesquisaFilme(query);
+      }
+    };
+
+    atualizaFiltro();
+    atualizaEmCartaz();
+    atualizaTopRated();
   }
 
   function carregaPesquisa(query, pagina = 0) {
     document.getElementById("index").setAttribute("pesquisa", true);
+
     let total = 0;
     buscaFilme(query, pagina)
       .then(({ data }) => {
@@ -649,26 +816,37 @@ window.onload = function () {
       });
   }
 
-  const abaIndex = document.querySelector("[classe-home]");
+  window.abaIndex = document.querySelector("[classe-home]");
+  window.abaPesquisa = document.querySelector("[classe-pesquisa]");
   abaIndex.onclick = function (e) {
     e.preventDefault();
     ultimaBusca = "";
+    window.history.pushState({ state: "index" }, "index", "/src/index.html");
     carregaIndex();
   };
-
-  const abaPesquisa = document.querySelector("[classe-pesquisa]");
   let ultimaBusca = "";
   let query = "";
   abaPesquisa.onclick = function (e) {
+    console.log("click");
     e.preventDefault();
-    query = abaPesquisa.form.query.value;
-    if (query && ultimaBusca !== query) {
-      let pesquisa = document.getElementById("conteudoIndex");
-      pesquisa.innerHTML = montaResultado();
-      ultimaBusca = query;
-      carregaPesquisa(query);
+    query = document.getElementById("queryBusca").value;
+    if (query) {
+      window.history.pushState(
+        { state: "pesquisa", query },
+        "Pesquisa",
+        `/pesquisa/${query}`
+      );
+      document.title = `${query} - Resultados`;
+      pesquisaFilme(query);
     }
   };
+
+  function pesquisaFilme(query) {
+    let pesquisa = document.getElementById("conteudoIndex");
+    pesquisa.innerHTML = montaResultado();
+    ultimaBusca = query;
+    carregaPesquisa(query);
+  }
 
   const ordemApresentacao = document.getElementById("ordemApresentacao");
   ordemApresentacao.onchange = function (e) {

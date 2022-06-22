@@ -47,7 +47,6 @@ export function filmesTopzeira(pagina) {
     url += `&page=${pagina}`;
   }
   let encodedurl = encodeURI(url);
-  console.log(encodedurl);
 
   const response = axios.get(encodedurl);
   return response;
