@@ -12,6 +12,8 @@ import { filmesTopzeira } from "./servicoAPI.js";
 
 window.onload = function () {
   window.history.pushState({ state: "index" }, "index", "/src/index.html");
+
+  let aplicaGrafico = new Chart(document.getElementById("grafico1"), {});
   function montaDetalhes() {
     return `<div id="conteudoIndex">
   <div class="conteudoDetalhes">
@@ -87,13 +89,13 @@ window.onload = function () {
           <h3>Este é um site feito para um estudo de Web.</h3>
         </div>
         <div class="caixaDePesquisa">
-            <div class="form">
-              <label for="">
-                <input id="queryBusca" name="query" type="text" placeholder="Busque por um filme..." />
-              </label>
-              <input type="submit" value="Buscar" classe-pesquisa />
-            </div>
+          <div class="form">
+            <label for="">
+              <input id="queryBusca" name="query" type="text" placeholder="Busque por um filme..." />
+            </label>
+            <input type="submit" value="Buscar" classe-pesquisa />
           </div>
+        </div>
       </div>
     </div>
   </section>
@@ -124,7 +126,7 @@ window.onload = function () {
               </span>
             </div>
           </a>
-  
+
           <div class="selecao closed" id="aba">
             <h3>Ordenar por:</h3>
             <div class="ordenacaoInline">
@@ -140,7 +142,7 @@ window.onload = function () {
             </div>
           </div>
         </div>
-  
+
         <div class="filtrar" id="filtrar">
           <a onclick="abrirAba('filtrar')">
             <div class="texto">
@@ -152,7 +154,7 @@ window.onload = function () {
             <div class="tituloBotao">
               <h3>Filtrar por:</h3>
               <div class="botoes">
-  
+
                 <div class="botaoFiltrar">
                   <a id="botaoFiltrar">Filtrar</a>
                 </div>
@@ -161,19 +163,19 @@ window.onload = function () {
                 </div>
               </div>
             </div>
-  
+
             <div>
               <div class="opcoes-filtro">
                 <div class="data">
                   <h3>Data de Lançamento:</h3>
-  
+
                   <div class="entrada-data">
                     <div>
                       <h4>De:</h4>
                       <input type="date" name="dataMin" id="dataMin" />
                     </div>
                     <div>
-  
+
                       <h4>Até:</h4>
                       <input type="date" name="dataMax" id="dataMax" />
                     </div>
@@ -183,26 +185,31 @@ window.onload = function () {
                   <h3>Gênero:</h3>
                   <ul class="generos" id="generos"></ul>
                 </div>
-  
+
               </div>
             </div>
           </div>
         </div>
       </div>
       <div class=" topRatedList">
-        <table>
-          <thead>
-            <tr>
-              <th class="rank">Rank</th>
-              <th class="nomeFilme">Nome</th>
-              <th class="notaAvaliacao">Avaliação dos Usuários</th>
-              <th class="votos">N.º de Votos</th>
-              <th class="anoLancamento">Ano de Lançamento</th>
-            </tr>
-          </thead>
-          <tbody id="topRatedFilmes"></tbody>
-          <div id="expandeLista"></div>
-        </table>
+        <div class="grafico">
+          <canvas id="grafico1" width="1000" height="500"></canvas>
+        </div>
+        <div class="tabela">
+          <table>
+            <thead>
+              <tr>
+                <th class="rank">Rank</th>
+                <th class="nomeFilme">Nome</th>
+                <th class="notaAvaliacao">Avaliação dos Usuários</th>
+                <th class="votos">N.º de Votos</th>
+                <th class="anoLancamento">Ano de Lançamento</th>
+              </tr>
+            </thead>
+            <tbody id="topRatedFilmes"></tbody>
+            <div id="expandeLista"></div>
+          </table>
+        </div>
       </div>
     </section>`;
   }
@@ -216,6 +223,7 @@ window.onload = function () {
     const aNome = document.createElement("a");
 
     divColuna.classList.add(tipo);
+
     divColuna.classList.add("coluna");
     divImagem.classList.add("imagem");
     aImagem.classList.add("imagem");
@@ -253,15 +261,19 @@ window.onload = function () {
       span.classList.add("material-symbols-outlined");
 
       if (tipo === "botaoVoltar") {
+        divColuna.setAttribute("id", "botaoVoltar");
         span.append("arrow_back");
         divImagem.style.width = "150px";
-        divImagem.setAttribute("onclick", `proxPagina(${filme})`);
         divImagem.classList.add("avancarEVoltar");
+        divColuna.classList.add("hidden");
+        divColuna.classList.add("unselectable");
       } else if (tipo === "botaoAvancar") {
+        divColuna.setAttribute("id", "botaoAvancar");
         span.append("arrow_forward");
+        divColuna.setAttribute("onclick", `proxPagina(${filme})`);
         divImagem.style.width = "150px";
-        divImagem.setAttribute("onclick", `proxPagina(${filme})`);
         divImagem.classList.add("avancarEVoltar");
+        divColuna.classList.add("unselectable");
       } else if (tipo === "botaoMais") {
         span.append("add_circle");
         aImagem.setAttribute("onclick", `proxPagina(${filme})`);
@@ -316,7 +328,7 @@ window.onload = function () {
         descricaoH3.append(`Descricao: `);
         divDescricao.appendChild(descricaoH3);
         divDescricao.append("\n");
-        divDescricao.append(filme.overview || "Descricao Nao Adicionada");
+        divDescricao.append(filme.overview || "Descrição não adicionada");
       }
 
       divInformacoes.appendChild(divGenero);
@@ -325,6 +337,9 @@ window.onload = function () {
     }
     divColuna.appendChild(divImagem);
     divColuna.appendChild(divInformacoes);
+    if (tipo === "filme") {
+      divColuna.classList.add("hidden");
+    }
 
     return divColuna;
   }
@@ -430,15 +445,21 @@ window.onload = function () {
     tr.appendChild(tdNota);
     tr.appendChild(tdNVotos);
     tr.appendChild(tdAnoLancamento);
+    tr.classList.add("hidden");
     return tr;
   }
 
   function ordenaPor() {
     let filmes = [];
+    let filmesNaoOrdenados = [];
     let ordem = document.getElementById("ordemPorVoto").value;
 
     document.querySelectorAll("[ordenacao]").forEach((tr) => {
-      filmes.push(tr);
+      if (tr.classList.contains("hidden")) {
+        filmesNaoOrdenados.push(tr);
+      } else {
+        filmes.push(tr);
+      }
     });
     if (ordem === "votosMaior") {
       filmes.sort(
@@ -459,6 +480,10 @@ window.onload = function () {
       filme.children[0].innerHTML = indice + 1;
       tagPai.appendChild(filme);
     });
+    filmesNaoOrdenados.forEach((filme) => {
+      tagPai.appendChild(filme);
+    });
+    atualizaGrafico();
   }
 
   function filtrarPor(dataMin, dataMax, generos) {
@@ -499,6 +524,7 @@ window.onload = function () {
       tagPai.appendChild(montaColuna(filme, "pesquisa"));
     });
   }
+
   window.onpopstate = function (event) {
     if (event && event.state) {
       if (location.pathname.includes("/detalhes/")) {
@@ -510,6 +536,7 @@ window.onload = function () {
       }
     }
   };
+
   function atualizaDetalhesFilme(filme) {
     document.title = `${filme.title}`;
 
@@ -558,7 +585,13 @@ window.onload = function () {
       ol.appendChild(li);
     });
     let duracao = document.getElementById("duracao");
-    duracao.append(`${Math.floor(filme.runtime / 60)}h${filme.runtime % 60}m`);
+    if (filme.runtime) {
+      duracao.append(
+        `${Math.floor(filme.runtime / 60)}h${filme.runtime % 60}m`
+      );
+    } else {
+      duracao.append("N/A");
+    }
     let overview = document.getElementById("overview");
     overview.append(filme.overview);
 
@@ -632,7 +665,12 @@ window.onload = function () {
     filmesTopzeira(pagina)
       .then(({ data }) => {
         pagina = data.page;
-        totalTopRated = data.total_pages;
+        if (data.total_pages > 500) {
+          totalTopRated = 500;
+        } else {
+          totalTopRated = data.total_pages;
+        }
+
         return data.results;
       })
       .then((filmes) => {
@@ -651,6 +689,15 @@ window.onload = function () {
           }
           tagPai.appendChild(montaLinhas(filme, "filme", Number(indice) + 1));
         });
+        if (pagina === 1 || pagina === totalTopRated) {
+          for (let i = 0; i < 6; i++) {
+            tagPai.children[i].classList.remove("hidden");
+          }
+        } else {
+          for (let i = 0; i < tagPai.children.length; i++) {
+            tagPai.children[i].classList.remove("hidden");
+          }
+        }
       })
       .then(() => {
         document.getElementById("expandeLista").remove();
@@ -665,15 +712,18 @@ window.onload = function () {
         if (document.getElementById("ordemPorVoto").value) {
           ordenaPor();
         }
+        atualizaGrafico();
       });
   }
 
   function atualizaEmCartaz(pagina = 1) {
     let total = 1;
     let tagPai = document.getElementById("nosCinemas");
-    tagPai.innerHTML = "";
-    if (pagina > 1) {
+    if (pagina === 1) {
       tagPai.appendChild(montaColuna(pagina - 1, "botaoVoltar"));
+    }
+    if (pagina > 1) {
+      tagPai.removeChild(tagPai.lastChild);
     }
     emCartaz(pagina)
       .then(({ data }) => {
@@ -687,8 +737,13 @@ window.onload = function () {
         });
       })
       .then(() => {
-        if (pagina < total) {
+        if (pagina > 1) {
+          tagPai.appendChild(montaColuna(6, "botaoAvancar"));
+        } else if (total > 1 && pagina === 1) {
           tagPai.appendChild(montaColuna(pagina + 1, "botaoAvancar"));
+        }
+        if (pagina === 1) {
+          exibe3Filmes(1);
         }
       });
   }
@@ -733,7 +788,13 @@ window.onload = function () {
     if (query) {
       carregaPesquisa(query, pagina);
     } else {
-      atualizaEmCartaz(pagina);
+      exibe3Filmes(pagina);
+      if (
+        pagina === 5 &&
+        document.getElementById("nosCinemas").children.length <= 22
+      ) {
+        atualizaEmCartaz(2);
+      }
     }
   };
 
@@ -777,7 +838,6 @@ window.onload = function () {
 
     window.abaPesquisa = document.querySelector("[classe-pesquisa]");
     abaPesquisa.onclick = function (e) {
-      console.log("click");
       e.preventDefault();
       query = document.getElementById("queryBusca").value;
       if (query) {
@@ -789,6 +849,58 @@ window.onload = function () {
         document.title = `${query} - Resultados`;
         pesquisaFilme(query);
       }
+    };
+
+    const ordemApresentacao = document.getElementById("ordemApresentacao");
+    ordemApresentacao.onchange = function (e) {
+      document.getElementById("topRatedFilmes").innerHTML = "";
+      atualizaTopRated(ordemApresentacao.value);
+      ordemPorVotos.options[0].selected = true;
+      ordemApresentacao.focus();
+    };
+
+    const ordemPorVotos = document.getElementById("ordemPorVoto");
+    ordemPorVotos.onchange = function (e) {
+      if (ordemPorVotos.value) {
+        ordenaPor();
+      } else {
+        document.getElementById("topRatedFilmes").innerHTML = "";
+        atualizaTopRated(ordemApresentacao.value);
+      }
+      ordemPorVotos.focus();
+    };
+
+    const filtrar = document.getElementById("botaoFiltrar");
+    filtrar.onclick = function (e) {
+      const dataMin = document.getElementById("dataMin").value;
+      const dataMax = document.getElementById("dataMax").value;
+      const generosFiltrados = document.querySelectorAll(".ativo");
+      let generosExigidos = [];
+      generosFiltrados.forEach((genero) => {
+        generosExigidos.push(genero.id);
+      });
+      if (dataMin || dataMax || generosExigidos.length) {
+        filtrarPor(dataMin, dataMax, generosExigidos);
+        document
+          .getElementById("botaoRestaurar")
+          .parentNode.classList.remove("closed");
+        atualizaGrafico();
+      } else {
+        document.getElementById("topRatedFilmes").innerHTML = "";
+        document
+          .getElementById("botaoRestaurar")
+          .parentNode.classList.add("closed");
+        ordemPorVotos.options[0].selected = true;
+        atualizaTopRated(ordemApresentacao.value);
+      }
+    };
+
+    const restaurar = document.getElementById("botaoRestaurar");
+    restaurar.onclick = function (e) {
+      document.getElementById("topRatedFilmes").innerHTML = "";
+      atualizaTopRated(ordemApresentacao.value);
+      restaurar.parentNode.classList.add("closed");
+      ordemPorVotos.options[0].selected = true;
     };
 
     atualizaFiltro();
@@ -827,7 +939,6 @@ window.onload = function () {
   let ultimaBusca = "";
   let query = "";
   abaPesquisa.onclick = function (e) {
-    console.log("click");
     e.preventDefault();
     query = document.getElementById("queryBusca").value;
     if (query) {
@@ -881,6 +992,7 @@ window.onload = function () {
       document
         .getElementById("botaoRestaurar")
         .parentNode.classList.remove("closed");
+      atualizaGrafico();
     } else {
       document.getElementById("topRatedFilmes").innerHTML = "";
       document
@@ -899,7 +1011,140 @@ window.onload = function () {
     ordemPorVotos.options[0].selected = true;
   };
 
+  window.exibe3Filmes = (insidePage) => {
+    let filmes = document.querySelectorAll(".filme");
+
+    filmes.forEach((filme, index) => {
+      if (index <= insidePage * 3 && index > insidePage * 3 - 3) {
+        filme.classList.remove("hidden");
+      } else {
+        filme.classList.add("hidden");
+      }
+    });
+    if (insidePage === 14) {
+      document.getElementById("botaoAvancar").classList.add("hidden");
+    } else {
+      document.getElementById("botaoAvancar").classList.remove("hidden");
+    }
+    document
+      .getElementById("botaoAvancar")
+      .setAttribute("onclick", `proxPagina(${insidePage + 1})`);
+
+    if (insidePage > 1) {
+      document.getElementById("botaoVoltar").classList.remove("hidden");
+      document
+        .getElementById("botaoVoltar")
+        .setAttribute("onclick", `proxPagina(${insidePage - 1})`);
+    } else {
+      document.getElementById("botaoVoltar").classList.add("hidden");
+    }
+  };
+
   atualizaEmCartaz();
   atualizaTopRated();
   atualizaFiltro();
+
+  function atualizaGrafico() {
+    aplicaGrafico.destroy();
+
+    aplicaGrafico = new Chart(document.getElementById("grafico1"), {});
+    let labels = [];
+    let datasets = [];
+    let datasetsNota = {
+      type: "bar",
+      label: "Dataset 1",
+      backgroundColor: "rgba(255, 99, 132, 0.5)",
+      borderColor: "rgb(255, 99, 132)",
+      data: [],
+      yAxisID: "y",
+    };
+    let datasetsVotos = {
+      type: "bar",
+      label: "Dataset 2",
+      backgroundColor: "rgba(54, 162, 235, 0.5)",
+      borderColor: "rgb(54, 162, 235)",
+      data: [],
+      yAxisID: "y1",
+    };
+
+    let filmes = document.getElementById("topRatedFilmes");
+    filmes = Array.from(filmes.childNodes).filter(
+      (filme) => !filme.classList.contains("hidden")
+    );
+
+    for (let i = 0; i < 6 && i < filmes.length; i++) {
+      labels.push(filmes[i].childNodes[1].innerText);
+      datasetsNota.data.push(filmes[i].childNodes[2].innerText);
+      datasetsVotos.data.push(filmes[i].childNodes[3].innerText);
+    }
+    datasets.push(datasetsNota);
+    datasets.push(datasetsVotos);
+
+    aplicaGrafico.config.data.labels = labels;
+    aplicaGrafico.config.data.datasets = datasets;
+    aplicaGrafico.config.options = {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: {
+        mode: "index",
+        intersect: false,
+      },
+      stacked: true, // para otimizar o gráfico
+      plugins: {
+        title: {
+          display: true,
+          text: "Votos",
+        },
+      },
+      scales: {
+        y: {
+          type: "linear",
+          display: true,
+          position: "left",
+          title: {
+            display: true,
+            text: "Nota",
+            color: "rgba(255, 99, 132, 1)",
+          },
+          ticks: {
+            color: "rgba(255, 99, 132, 1)",
+          },
+          grid: {
+            color: "rgba(255, 99, 132, 0.1)",
+          },
+          max: 10,
+          min: 0,
+        },
+        y1: {
+          type: "linear",
+          display: true,
+          position: "right",
+          title: {
+            display: true,
+            text: "Nº de Votos",
+            color: "rgba(54, 162, 235, 1)",
+          },
+          ticks: {
+            color: "rgba(54, 162, 235, 1)",
+          },
+          grid: {
+            color: "rgba(54, 162, 235, 0.1)",
+            drawOnChartArea: true, // only want the grid lines for one axis to show up
+          },
+        },
+        x: {
+          display: true,
+          position: "bottom",
+          grid: {
+            display: false,
+          },
+          ticks: {
+            source: "labels",
+          },
+        },
+      },
+    };
+
+    aplicaGrafico.update();
+  }
 };
