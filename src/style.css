@@ -423,7 +423,6 @@ section {
   cursor: pointer;
 }
 .midia div.colunas div.coluna .imagem {
-  min-height: 300px;
   max-height: 300px;
   border-radius: 8px;
   background: transparent;
@@ -442,6 +441,12 @@ section {
   border-radius: 8px;
   width: 100%;
   height: 100%;
+  min-height: 180px;
+}
+@media screen and (min-width: 425px) {
+  .midia div.colunas div.coluna div.imagem img {
+    min-height: 300px;
+  }
 }
 
 .midia div.colunas div.coluna .informacoes {
@@ -849,10 +854,11 @@ div.opcoes-filtro div.data .entrada-data h4 {
   margin-top: 0px;
   margin-right: 5px;
 }
-div.opcoes-filtro div.data .entrada-data input {
-  height: 20px;
+div.opcoes-filtro div.data .entrada-data select {
   border-radius: 5px;
   margin-right: 5px;
+  width: 70px;
+  height: 25px;
 }
 
 div.opcoes-filtro div.genero {

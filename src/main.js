@@ -13,6 +13,20 @@ import { filmesTopzeira } from "./servicoAPI.js";
 window.onload = function () {
   window.history.pushState({ state: "index" }, "index", "/src/index.html");
 
+  const dataEntries = () => {
+    const dataMin = document.getElementById("dataMin");
+    const dataMax = document.getElementById("dataMax");
+    const anoOrigem = 1900;
+    const anoAtual = new Date().getFullYear();
+    for (let i = anoAtual; i >= anoOrigem; i--) {
+      dataMin.innerHTML += `<option value="${i}">${i}</option>`;
+      dataMax.innerHTML += `<option value="${i}">${i}</option>`;
+    }
+    dataMin.value = 1990;
+    dataMax.value = anoAtual;
+  };
+  dataEntries();
+
   let aplicaGrafico = new Chart(document.getElementById("grafico1"), {});
   function montaDetalhes() {
     return `<div id="conteudoIndex">
@@ -82,136 +96,141 @@ window.onload = function () {
 
   function montaIndex() {
     return `<section id="busca" class="inner-content nova-sessao">
-    <div class="conteudo">
-      <div class="conteudo-wrap">
-        <div class="textoBemVindo">
-          <h2>Bem Vindo!</h2>
-          <h3>Este é um site feito para um estudo de Web.</h3>
-        </div>
-        <div class="caixaDePesquisa">
-          <div class="form">
-            <label for="">
-              <input id="queryBusca" name="query" type="text" placeholder="Busque por um filme..." />
-            </label>
-            <input type="submit" value="Buscar" classe-pesquisa />
+      <div class="conteudo">
+        <div class="conteudo-wrap">
+          <div class="textoBemVindo">
+            <h2>Bem Vindo!</h2>
+            <h3>Este é um site feito para um estudo de Web.</h3>
           </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <div id="conteudoIndex">
-    <section class="inner-content nova-sessao">
-      <div class="conteudo-filmes">
-        <div class="header-section">
-          <h2>Nos Cinemas</h2>
-        </div>
-        <div class="midia">
-          <div id="nosCinemas" class="colunas"></div>
+          <div class="caixaDePesquisa">
+            <div class="form">
+              <label for="">
+                <input id="queryBusca" name="query" type="text" placeholder="Busque por um filme..." />
+              </label>
+              <input type="submit" value="Buscar" classe-pesquisa />
+            </div>
+          </div>
         </div>
       </div>
     </section>
-    <section id="topRated" class="inner-content nova-sessao">
-      <div class="conteudo-filmes">
-        <div class="header-section">
-          <h2>Mais bem avaliados</h2>
-        </div>
-      </div>
-      <div class="opcoes">
-        <div class="ordenar" id="ordenar">
-          <a onclick="abrirAba('ordenar')">
-            <div class="texto">
-              <h2>Ordenar</h2>
-              <span class="material-symbols-outlined" id="icone">
-                chevron_right
-              </span>
-            </div>
-          </a>
-
-          <div class="selecao closed" id="aba">
-            <h3>Ordenar por:</h3>
-            <div class="ordenacaoInline">
-              <select name="" id="ordemApresentacao">
-                <option value="melhorAvaliacao">Melhor Avaliação</option>
-                <option value="menorAvaliacao">Pior Avaliação</option>
-              </select>
-              <select name="" id="ordemPorVoto">
-                <option value="">--Selecione--</option>
-                <option value="votosMaior">Mais Votado</option>
-                <option value="votosMenor">Menos Votado</option>
-              </select>
-            </div>
+    <div id="conteudoIndex">
+      <section class="inner-content nova-sessao">
+        <div class="conteudo-filmes">
+          <div class="header-section">
+            <h2>Nos Cinemas</h2>
+          </div>
+          <div class="midia">
+            <div id="nosCinemas" class="colunas"></div>
           </div>
         </div>
+      </section>
+      <section id="topRated" class="inner-content nova-sessao">
+        <div class="conteudo-filmes">
+          <div class="header-section">
+            <h2>Mais bem avaliados</h2>
+          </div>
+        </div>
+        <div class="opcoes">
+          <div class="ordenar" id="ordenar">
+            <a onclick="abrirAba('ordenar')">
+              <div class="texto">
+                <h2>Ordenar</h2>
+                <span class="material-symbols-outlined" id="icone">
+                  chevron_right
+                </span>
+              </div>
+            </a>
 
-        <div class="filtrar" id="filtrar">
-          <a onclick="abrirAba('filtrar')">
-            <div class="texto">
-              <h2>Filtrar</h2>
-              <span class="material-symbols-outlined" id="icone">chevron_right</span>
-            </div>
-          </a>
-          <div class="filtros closed" id="aba">
-            <div class="tituloBotao">
-              <h3>Filtrar por:</h3>
-              <div class="botoes">
-
-                <div class="botaoFiltrar">
-                  <a id="botaoFiltrar">Filtrar</a>
-                </div>
-                <div class="botaoFiltrar closed">
-                  <a id="botaoRestaurar">Restaurar</a>
-                </div>
+            <div class="selecao closed" id="aba">
+              <h3>Ordenar por:</h3>
+              <div class="ordenacaoInline">
+                <select name="" id="ordemApresentacao">
+                  <option value="melhorAvaliacao">Melhor Avaliação</option>
+                  <option value="menorAvaliacao">Pior Avaliação</option>
+                </select>
+                <select name="" id="ordemPorVoto">
+                  <option value="">--Selecione--</option>
+                  <option value="votosMaior">Mais Votado</option>
+                  <option value="votosMenor">Menos Votado</option>
+                </select>
               </div>
             </div>
+          </div>
 
-            <div>
-              <div class="opcoes-filtro">
-                <div class="data">
-                  <h3>Data de Lançamento:</h3>
+          <div class="filtrar" id="filtrar">
+            <a onclick="abrirAba('filtrar')">
+              <div class="texto">
+                <h2>Filtrar</h2>
+                <span class="material-symbols-outlined" id="icone">chevron_right</span>
+              </div>
+            </a>
+            <div class="filtros closed" id="aba">
+              <div class="tituloBotao">
+                <h3>Filtrar por:</h3>
+                <div class="botoes">
 
-                  <div class="entrada-data">
-                    <div>
-                      <h4>De:</h4>
-                      <input type="date" name="dataMin" id="dataMin" />
-                    </div>
-                    <div>
-
-                      <h4>Até:</h4>
-                      <input type="date" name="dataMax" id="dataMax" />
-                    </div>
+                  <div class="botaoFiltrar">
+                    <a id="botaoFiltrar">Filtrar</a>
+                  </div>
+                  <div class="botaoFiltrar closed">
+                    <a id="botaoRestaurar">Restaurar</a>
                   </div>
                 </div>
-                <div class="genero">
-                  <h3>Gênero:</h3>
-                  <ul class="generos" id="generos"></ul>
-                </div>
+              </div>
 
+              <div>
+                <div class="opcoes-filtro">
+                  <div class="data">
+                    <h3>Data de Lançamento:</h3>
+
+                    <div class="entrada-data">
+                      <h4>De:</h4>
+                      <div>
+                        <select name="dataMin" id="dataMin" class="anoEntrada">
+                          <option value=""></option>
+                        </select>
+
+                      </div>
+                      <h4>Até:</h4>
+                      <div>
+                        <select name="dataMax" id="dataMax" class="anoEntrada">
+                          <option value=""></option>
+                        </select>
+
+                      </div>
+                    </div>
+                  </div>
+                  <div class="genero">
+                    <h3>Gênero:</h3>
+                    <ul class="generos" id="generos"></ul>
+                  </div>
+
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class=" topRatedList">
-        <div class="grafico">
-          <canvas id="grafico1" width="1000" height="500"></canvas>
+        <div class=" topRatedList">
+          <div class="grafico">
+            <canvas id="grafico1" width="800" height="300"></canvas>
+          </div>
+          <div class="tabela">
+            <table>
+              <thead>
+                <tr>
+                  <th class="rank">Rank</th>
+                  <th class="nomeFilme">Nome</th>
+                  <th class="notaAvaliacao">Avaliação dos Usuários</th>
+                  <th class="votos">N.º de Votos</th>
+                  <th class="anoLancamento">Ano de Lançamento</th>
+                </tr>
+              </thead>
+              <tbody id="topRatedFilmes"></tbody>
+              <div id="expandeLista"></div>
+            </table>
+          </div>
         </div>
-        <div class="tabela">
-          <table>
-            <thead>
-              <tr>
-                <th class="rank">Rank</th>
-                <th class="nomeFilme">Nome</th>
-                <th class="notaAvaliacao">Avaliação dos Usuários</th>
-                <th class="votos">N.º de Votos</th>
-                <th class="anoLancamento">Ano de Lançamento</th>
-              </tr>
-            </thead>
-            <tbody id="topRatedFilmes"></tbody>
-            <div id="expandeLista"></div>
-          </table>
-        </div>
-      </div>
-    </section>`;
+      </section>`;
   }
 
   function montaColuna(filme, tipo) {
@@ -285,13 +304,13 @@ window.onload = function () {
 
       divImagem.appendChild(aImagem);
       divColuna.classList.add("filme");
-      divColuna.classList.add("pesquisa");
       divColuna.append(divImagem);
 
       return divColuna;
     } else {
       if (tipo === "pesquisa") {
         divColuna.classList.add("filme");
+        divColuna.classList.add("pesquisa");
       }
       const h2 = document.createElement("h2");
       const divGenero = document.createElement("div");
@@ -493,13 +512,11 @@ window.onload = function () {
     });
 
     if (dataMin) {
-      const dataMenor = (filme) =>
-        filme.children[4].getAttribute("data") >= dataMin;
+      const dataMenor = (filme) => filme.children[4].innerText >= dataMin;
       filmes = filmes.filter(dataMenor);
     }
     if (dataMax) {
-      const dataMaior = (filme) =>
-        filme.children[4].getAttribute("data") <= dataMax;
+      const dataMaior = (filme) => filme.children[4].innerText <= dataMax;
       filmes = filmes.filter(dataMaior);
     }
     if (generos.length) {
@@ -525,11 +542,12 @@ window.onload = function () {
     });
   }
 
-  window.onpopstate = function (event) {
+  window.onpopstate = async function (event) {
     if (event && event.state) {
       if (location.pathname.includes("/detalhes/")) {
         carregaFilme(event.state.id_filme);
       } else if (location.pathname.includes("/pesquisa/")) {
+        document.getElementById("conteudoSite").innerHTML = montaIndex();
         pesquisaFilme(event.state.query);
       } else if (location.pathname.includes("/src/")) {
         carregaIndex();
@@ -784,7 +802,7 @@ window.onload = function () {
     carregaFilme(id);
   };
 
-  window.proxPagina = function (pagina) {
+  window.proxPagina = function (pagina, dir = "") {
     if (query) {
       carregaPesquisa(query, pagina);
     } else {
@@ -794,6 +812,18 @@ window.onload = function () {
         document.getElementById("nosCinemas").children.length <= 22
       ) {
         atualizaEmCartaz(2);
+      }
+      let tagPai = document.getElementById("nosCinemas");
+      if (dir === "avancar") {
+        tagPai.scrollTo({
+          left: 0,
+          behavior: "smooth",
+        });
+      } else if (dir === "voltar") {
+        tagPai.scrollTo({
+          left: tagPai.scrollWidth,
+          behavior: "smooth",
+        });
       }
     }
   };
@@ -1028,13 +1058,13 @@ window.onload = function () {
     }
     document
       .getElementById("botaoAvancar")
-      .setAttribute("onclick", `proxPagina(${insidePage + 1})`);
+      .setAttribute("onclick", `proxPagina(${insidePage + 1}, "avancar")`);
 
     if (insidePage > 1) {
       document.getElementById("botaoVoltar").classList.remove("hidden");
       document
         .getElementById("botaoVoltar")
-        .setAttribute("onclick", `proxPagina(${insidePage - 1})`);
+        .setAttribute("onclick", `proxPagina(${insidePage - 1}, "voltar")`);
     } else {
       document.getElementById("botaoVoltar").classList.add("hidden");
     }
@@ -1052,7 +1082,7 @@ window.onload = function () {
     let datasets = [];
     let datasetsNota = {
       type: "bar",
-      label: "Dataset 1",
+      label: "Avaliação",
       backgroundColor: "rgba(255, 99, 132, 0.5)",
       borderColor: "rgb(255, 99, 132)",
       data: [],
@@ -1060,7 +1090,7 @@ window.onload = function () {
     };
     let datasetsVotos = {
       type: "bar",
-      label: "Dataset 2",
+      label: "N° de Votos",
       backgroundColor: "rgba(54, 162, 235, 0.5)",
       borderColor: "rgb(54, 162, 235)",
       data: [],
@@ -1103,7 +1133,7 @@ window.onload = function () {
           position: "left",
           title: {
             display: true,
-            text: "Nota",
+            text: "Avaliação",
             color: "rgba(255, 99, 132, 1)",
           },
           ticks: {
