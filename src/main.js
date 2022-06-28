@@ -58,7 +58,7 @@ window.onload = function () {
           <h2>Elenco Principal</h2>
         </div>
         <div class="midia">
-          <div class="colunas" id="pessoas">
+          <div class="colunas pessoas" id="pessoas">
           </div>
         </div>
       </div>
