@@ -7,7 +7,7 @@ Essa SPA utiliza a API pública de filmes disponível neste [link](https://www.t
 Primeiro clone o projeto
 
 ```shell
-git clone https://github.com/CaioHPP/EstudosJS.git ./spaFilmes
+git clone https://github.com/CaioHPP/spaFilmes.git
 ```
 
 Depois, instale as dependencias
