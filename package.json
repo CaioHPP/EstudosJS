@@ -1,19 +1,20 @@
 {
-  "name": "EstudosJS",
+  "name": "spaFilmes",
   "version": "1.0.0",
-  "description": "",
-  "main": "resultadoBusca.js",
+  "description": "API para busca de filmes",
+  "main": "./src/index.html",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "CaioHPP <caioutf@gmail.com>",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.27.2",
     "module": "^1.2.5",
     "sass": "^1.51.0"
   },
-  "packageManager": "yarn@3.2.0"
+  "packageManager": "yarn@3.2.0",
+  "repository": "https://github.com/CaioHPP/EstudosJS.git"
 }
