@@ -1,21 +1,21 @@
-# SPA - Filmes
+# SPA - Movies
 
-Essa SPA utiliza a API pública de filmes disponível neste [link](https://www.themoviedb.org) .
+This SPA uses the public movie API available at this [link](https://www.themoviedb.org).
 
-## Para rodar o projeto
+## To run the project
 
-Primeiro clone o projeto
-
-```shell
-git clone https://github.com/CaioHPP/spaFilmes.git
-```
-
-Depois, instale as dependencias
+First, clone the project
 
 ```shell
-cd spaFilmes && yarn install
+git clone https://github.com/CaioHPP/SPA-Movies.git
 ```
 
-- Inicializar a página
+Then, install the dependencies
 
-Inicialize a página a partir do vscode utilizando o Live Server no arquivo index.html presente em /spaFilmes/src/index.html
+```shell
+cd SPA-Movies && yarn install
+```
+
+- Initialize the page
+
+Initialize the page from VSCode using Live Server on the index.html file located at /spaFilmes/src/index.html
